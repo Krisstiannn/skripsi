@@ -1,5 +1,5 @@
-<?php 
-include "/xampp/htdocs/siatur/services/koneksi.php";
+<?php
+include "/xampp/htdocs/nsp/services/koneksi.php";
 session_start();
 
 date_default_timezone_set('Asia/Makassar');
@@ -9,19 +9,19 @@ $tanggal = date('Y-m-d');
 $jam = date('H:i:s');
 
 $query_tampilData = "SELECT * FROM absen WHERE nip_karyawan = '$nip_karyawan'";
-$tampil_data = $conn -> query($query_tampilData);
+$tampil_data = $conn->query($query_tampilData);
 
 if (isset($_POST['btn_absen'])) {
-    
+
     $cek_absensi = "SELECT tanggal FROM absen WHERE nip_karyawan = '$nip_karyawan' AND tanggal = '$tanggal'";
-    $cek = $conn -> query($cek_absensi);
-    
-    if ($cek -> num_rows > 0) {
+    $cek = $conn->query($cek_absensi);
+
+    if ($cek->num_rows > 0) {
         header("location:absen.php?message=MAAF ANDA SUDAH ABSEN HARI INI");
     } else {
         $sql = "INSERT INTO  `absen` (`id`,`nip_karyawan`,`nama_karyawan`,`tanggal`,`jam_masuk`,`jam_keluar`) 
         VALUES (NULL,'$nip_karyawan', '$nama_karyawan', '$tanggal','$jam',NULL)";
-        $result = $conn -> query($sql);
+        $result = $conn->query($sql);
         if ($result === TRUE) {
             header("location:absen.php?message=ABSEN BERHASIL DILAKUKAN");
         } else {
@@ -31,22 +31,22 @@ if (isset($_POST['btn_absen'])) {
 }
 
 if (isset($_POST['absen_keluar'])) {
-    if ($tampil_data->num_rows>0) {
-        $data = $tampil_data->fetch_assoc(); 
+    if ($tampil_data->num_rows > 0) {
+        $data = $tampil_data->fetch_assoc();
         if (empty($data['jam_keluar']) && !empty($data['jam_masuk']) && $tanggal ==  $data['tanggal']) {
             if (isset($_POST['absen_keluar'])) {
                 $update = "UPDATE absen SET jam_keluar = '$jam' WHERE nip_karyawan = '$nip_karyawan'
                 AND tanggal = '$tanggal'";
-            
-                $jam_keluar = $conn -> query($update);
+
+                $jam_keluar = $conn->query($update);
                 if ($jam_keluar == TRUE) {
                     echo "<script type= 'text/javascript'>
                     alert('Terima Kasih Sudah Berjuang Hari Ini :)');
                     </script>";
                 }
-            } 
-        } 
-}
+            }
+        }
+    }
 }
 
 ?>
@@ -62,21 +62,21 @@ if (isset($_POST['absen_keluar'])) {
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/siatur/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/siatur/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="/siatur/dist/css/adminlte.min.css">
-    <link rel="icon" href="/siatur/storage/nsp.jpg">
+    <link rel="stylesheet" href="/nsp/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/nsp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/nsp/dist/css/adminlte.min.css">
+    <link rel="icon" href="/nsp/storage/nsp.jpg">
 </head>
 
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php include "/xampp/htdocs/siatur/layouts/header.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/header.php" ?>
         <!-- Navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php include "/xampp/htdocs/siatur/layouts/sidebar-user.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/sidebar-user.php" ?>
         <!-- END Main Sidebar -->
 
         <!-- Main Content -->
@@ -132,27 +132,27 @@ if (isset($_POST['absen_keluar'])) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach($tampil_data as $absen) {?>
-                                                <tr>
-                                                    <td><?= $absen['nip_karyawan']?></td>
-                                                    <td><?= $absen['nama_karyawan']?></td>
-                                                    <td><?= $absen['tanggal']?></td>
-                                                    <td><?= $absen['jam_masuk']?></td>
-                                                    <td><?= $absen['jam_keluar']?></td>
-                                                    <td>
-                                                        <a class="btn btn-info btn-sm" href="">
-                                                            <i class="fas fa-pencil-alt">
-                                                            </i>
-                                                            Edit
-                                                        </a>
-                                                        <a class="btn btn-danger btn-sm" href="">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                            Delete
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <?php }?>
+                                                <?php foreach ($tampil_data as $absen) { ?>
+                                                    <tr>
+                                                        <td><?= $absen['nip_karyawan'] ?></td>
+                                                        <td><?= $absen['nama_karyawan'] ?></td>
+                                                        <td><?= $absen['tanggal'] ?></td>
+                                                        <td><?= $absen['jam_masuk'] ?></td>
+                                                        <td><?= $absen['jam_keluar'] ?></td>
+                                                        <td>
+                                                            <a class="btn btn-info btn-sm" href="">
+                                                                <i class="fas fa-pencil-alt">
+                                                                </i>
+                                                                Edit
+                                                            </a>
+                                                            <a class="btn btn-danger btn-sm" href="">
+                                                                <i class="fas fa-trash">
+                                                                </i>
+                                                                Delete
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -170,21 +170,21 @@ if (isset($_POST['absen_keluar'])) {
         <!-- END Main Content -->
 
         <!-- Main Footer -->
-        <?php include "/xampp/htdocs/siatur/layouts/footer.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
         <!-- End Footer -->
     </div>
 
-    <script src="/siatur/plugins/jquery/jquery.min.js"></script>
-    <script src="/siatur/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/siatur/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="/siatur/dist/js/adminlte.js"></script>
-    <script src="/siatur/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="/siatur/plugins/raphael/raphael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-    <script src="/siatur/plugins/chart.js/Chart.min.js"></script>
-    <script src="/siatur/dist/js/demo.js"></script>
-    <script src="/siatur/dist/js/pages/dashboard2.js"></script>
+    <script src="/nsp/plugins/jquery/jquery.min.js"></script>
+    <script src="/nsp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/nsp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/nsp/dist/js/adminlte.js"></script>
+    <script src="/nsp/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/nsp/plugins/raphael/raphael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="/nsp/plugins/chart.js/Chart.min.js"></script>
+    <script src="/nsp/dist/js/demo.js"></script>
+    <script src="/nsp/dist/js/pages/dashboard2.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

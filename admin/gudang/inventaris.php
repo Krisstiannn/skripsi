@@ -1,5 +1,5 @@
-<?php 
-include "/xampp/htdocs/siatur/services/koneksi.php";
+<?php
+include "/xampp/htdocs/nsp/services/koneksi.php";
 
 $query_tampilData = "SELECT * FROM inventaris";
 $result_tampilData = $conn->query($query_tampilData);
@@ -16,10 +16,10 @@ $result_tampilData = $conn->query($query_tampilData);
         <link
             href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="/siatur/plugins/fontawesome-free/css/all.min.css">
-        <link rel="stylesheet" href="/siatur/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-        <link rel="stylesheet" href="/siatur/dist/css/adminlte.min.css">
-        <link rel="icon" href="/siatur/storage/nsp.jpg">
+        <link rel="stylesheet" href="/nsp/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="/nsp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+        <link rel="stylesheet" href="/nsp/dist/css/adminlte.min.css">
+        <link rel="icon" href="/nsp/storage/nsp.jpg">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -27,11 +27,11 @@ $result_tampilData = $conn->query($query_tampilData);
 
 
         <!-- Navbar -->
-        <?php include "/xampp/htdocs/siatur/layouts/header.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/header.php" ?>
         <!-- Navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php include "/xampp/htdocs/siatur/layouts/sidebar.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/sidebar.php" ?>
         <!-- END Main Sidebar -->
 
         <!-- Main Content -->
@@ -93,37 +93,37 @@ $result_tampilData = $conn->query($query_tampilData);
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <?php foreach ($result_tampilData as $inventaris) {?>
-                                            <tbody>
-                                                <tr>
-                                                    <td><?= $inventaris['kode_barang']?></td>
-                                                    <td>
-                                                        <img src="/siatur/storage/img/<?= $inventaris['gambar_barang']?>"
-                                                            alt="<?= $inventaris['gambar_barang']?>"
-                                                            style="width: 100px;">
-                                                    </td>
-                                                    <td><?= $inventaris['nama_barang']?></td>
-                                                    <td><?= $inventaris['kondisi_barang']?></td>
-                                                    <td><?= $inventaris['jumlah_barang']?></td>
-                                                    <td><?= date('d-m-Y', strtotime($inventaris['tanggal_masuk'])) ?>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-info btn-sm"
-                                                            href="edit-inventaris.php?id=<?= $inventaris['id']?>">
-                                                            <i class="fas fa-pencil-alt">
-                                                            </i>
-                                                            Edit
-                                                        </a>
-                                                        <a class="btn btn-danger btn-sm"
-                                                            href="hapus-inventaris.php?id=<?= $inventaris['id']?>">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                            Delete
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <?php }?>
+                                            <?php foreach ($result_tampilData as $inventaris) { ?>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><?= $inventaris['kode_barang'] ?></td>
+                                                        <td>
+                                                            <img src="/nsp/storage/img/<?= $inventaris['gambar_barang'] ?>"
+                                                                alt="<?= $inventaris['gambar_barang'] ?>"
+                                                                style="width: 100px;">
+                                                        </td>
+                                                        <td><?= $inventaris['nama_barang'] ?></td>
+                                                        <td><?= $inventaris['kondisi_barang'] ?></td>
+                                                        <td><?= $inventaris['jumlah_barang'] ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($inventaris['tanggal_masuk'])) ?>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-info btn-sm"
+                                                                href="edit-inventaris.php?id=<?= $inventaris['id'] ?>">
+                                                                <i class="fas fa-pencil-alt">
+                                                                </i>
+                                                                Edit
+                                                            </a>
+                                                            <a class="btn btn-danger btn-sm"
+                                                                href="hapus-inventaris.php?id=<?= $inventaris['id'] ?>">
+                                                                <i class="fas fa-trash">
+                                                                </i>
+                                                                Delete
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            <?php } ?>
                                         </table>
                                     </div>
                                 </div>
@@ -137,21 +137,21 @@ $result_tampilData = $conn->query($query_tampilData);
         <!-- END Main Content -->
 
         <!-- Main Footer -->
-        <?php include "/xampp/htdocs/siatur/layouts/footer.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
         <!-- End Footer -->
     </div>
 
-    <script src="/siatur/plugins/jquery/jquery.min.js"></script>
-    <script src="/siatur/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/siatur/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="/siatur/dist/js/adminlte.js"></script>
-    <script src="/siatur/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="/siatur/plugins/raphael/raphael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-    <script src="/siatur/plugins/chart.js/Chart.min.js"></script>
-    <script src="/siatur/dist/js/demo.js"></script>
-    <script src="/siatur/dist/js/pages/dashboard2.js"></script>
+    <script src="/nsp/plugins/jquery/jquery.min.js"></script>
+    <script src="/nsp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/nsp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/nsp/dist/js/adminlte.js"></script>
+    <script src="/nsp/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/nsp/plugins/raphael/raphael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="/nsp/plugins/chart.js/Chart.min.js"></script>
+    <script src="/nsp/dist/js/demo.js"></script>
+    <script src="/nsp/dist/js/pages/dashboard2.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

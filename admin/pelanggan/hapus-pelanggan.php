@@ -1,5 +1,5 @@
 <?php
-include "/xampp/htdocs/siatur/services/koneksi.php";
+include "/xampp/htdocs/nsp/services/koneksi.php";
 
 $id = $_GET['id'];
 $query_hapusData = "DELETE FROM pelanggan WHERE id = '$id'";
@@ -11,4 +11,3 @@ if ($result_hapusData) {
                 document.location.href = 'pelanggan.php';
             </script>";
 }
-?>

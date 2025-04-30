@@ -1,5 +1,5 @@
 <?php
-include "/xampp/htdocs/siatur/services/koneksi.php";
+include "/xampp/htdocs/nsp/services/koneksi.php";
 
 $query_tampil = "SELECT * FROM psb";
 $result_tampil = $conn->query($query_tampil);
@@ -10,21 +10,21 @@ if (isset($_POST['btn_kirim'])) {
     $id_pekerjaan = $_POST['id_pekerjaan'];
     $id_karyawan = $_POST['id_karyawan'];
 
-    
+
     $cek_karyawan = $conn->query("SELECT * FROM karyawan WHERE id = '$id_karyawan'");
     $cek_pekerjaan = $conn->query("SELECT * FROM psb WHERE id = '$id_pekerjaan'");
     $cek = $conn->query("SELECT * FROM wo WHERE id_pekerjaan = '$id_pekerjaan'")->fetch_assoc();
 
-    if ($cek>0) {
-            echo "<script>alert('Pekerjaan Sudah Di Kirimkan Ke Karyawan!'); window.location.href='psb.php';</script>";
-            die();
+    if ($cek > 0) {
+        echo "<script>alert('Pekerjaan Sudah Di Kirimkan Ke Karyawan!'); window.location.href='psb.php';</script>";
+        die();
     } else if ($cek_karyawan->num_rows > 0 && $cek_pekerjaan->num_rows > 0) {
         $query_insert = "INSERT INTO wo (id_karyawan, id_pekerjaan) VALUES ('$id_karyawan', '$id_pekerjaan')";
-            if ($conn->query($query_insert)) {
-                echo "<script>alert('Pekerjaan berhasil dikirim ke karyawan!'); window.location.href='psb.php';</script>";
-            } else {
-                echo "<script>alert('Gagal mengirim pekerjaan!'); window.history.back();</script>";
-            }
+        if ($conn->query($query_insert)) {
+            echo "<script>alert('Pekerjaan berhasil dikirim ke karyawan!'); window.location.href='psb.php';</script>";
+        } else {
+            echo "<script>alert('Gagal mengirim pekerjaan!'); window.history.back();</script>";
+        }
     } else {
         echo "<script>alert('Data tidak valid!'); window.history.back();</script>";
     }
@@ -42,16 +42,16 @@ if (isset($_POST['btn_kirim'])) {
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/siatur/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/siatur/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="/siatur/dist/css/adminlte.min.css">
-    <link rel="icon" href="/siatur/storage/nsp.jpg">
+    <link rel="stylesheet" href="/nsp/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/nsp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/nsp/dist/css/adminlte.min.css">
+    <link rel="icon" href="/nsp/storage/nsp.jpg">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
-        <?php include "/xampp/htdocs/siatur/layouts/header.php"?>
-        <?php include "/xampp/htdocs/siatur/layouts/sidebar.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/header.php" ?>
+        <?php include "/xampp/htdocs/nsp/layouts/sidebar.php" ?>
 
         <!-- Main Content -->
         <div class="content-wrapper bg-gradient-white">
@@ -114,47 +114,47 @@ if (isset($_POST['btn_kirim'])) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($result_tampil as $psb) {?>
-                                                <tr>
-                                                    <td><?= $psb['nama_pelanggan']?></td>
-                                                    <td><?= $psb['wa_pelanggan']?></td>
-                                                    <td><?= $psb['alamat_pelanggan']?></td>
-                                                    <td><img src="/siatur/storage/img/<?= $psb['rumah_pelanggan']?>"
-                                                            alt="<?= $psb['rumah_pelanggan']?>" style="width: 100px;">
-                                                    </td>
-                                                    <td><img src="/siatur/storage/img/<?= $psb['ktp_pelanggan']?>"
-                                                            alt="<?= $psb['ktp_pelanggan']?>" style="width: 100px;">
-                                                    </td>
-                                                    <td><?= $psb['paket_internet']?></td>
-                                                    <td>
-                                                        <a class="btn btn-info btn-sm"
-                                                            href="edit-psb.php?id=<?= $psb['id']?>">
-                                                            <i class="fas fa-pencil-alt">
-                                                            </i>
-                                                            Edit
-                                                        </a>
-                                                        <a class="btn btn-danger btn-sm"
-                                                            href="hapus-psb.php?id=<?= $psb['id']?>">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                            Delete
-                                                        </a>
+                                                <?php foreach ($result_tampil as $psb) { ?>
+                                                    <tr>
+                                                        <td><?= $psb['nama_pelanggan'] ?></td>
+                                                        <td><?= $psb['wa_pelanggan'] ?></td>
+                                                        <td><?= $psb['alamat_pelanggan'] ?></td>
+                                                        <td><img src="/nsp/storage/img/<?= $psb['rumah_pelanggan'] ?>"
+                                                                alt="<?= $psb['rumah_pelanggan'] ?>" style="width: 100px;">
+                                                        </td>
+                                                        <td><img src="/nsp/storage/img/<?= $psb['ktp_pelanggan'] ?>"
+                                                                alt="<?= $psb['ktp_pelanggan'] ?>" style="width: 100px;">
+                                                        </td>
+                                                        <td><?= $psb['paket_internet'] ?></td>
+                                                        <td>
+                                                            <a class="btn btn-info btn-sm"
+                                                                href="edit-psb.php?id=<?= $psb['id'] ?>">
+                                                                <i class="fas fa-pencil-alt">
+                                                                </i>
+                                                                Edit
+                                                            </a>
+                                                            <a class="btn btn-danger btn-sm"
+                                                                href="hapus-psb.php?id=<?= $psb['id'] ?>">
+                                                                <i class="fas fa-trash">
+                                                                </i>
+                                                                Delete
+                                                            </a>
 
-                                                        <form action="psb.php" method="POST">
-                                                            <input type="hidden" name="id_pekerjaan"
-                                                                value="<?= $psb['id'] ?>">
-                                                            <select name="id_karyawan">
-                                                                <?php foreach ($result_tampilkaryawan as $karyawan) { ?>
-                                                                <option value="<?= $karyawan['id'] ?>">
-                                                                    <?= $karyawan['nama_karyawan'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <button type="submit" name="btn_kirim"
-                                                                class="btn btn-warning btn-sm">Kirim</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php }?>
+                                                            <form action="psb.php" method="POST">
+                                                                <input type="hidden" name="id_pekerjaan"
+                                                                    value="<?= $psb['id'] ?>">
+                                                                <select name="id_karyawan">
+                                                                    <?php foreach ($result_tampilkaryawan as $karyawan) { ?>
+                                                                        <option value="<?= $karyawan['id'] ?>">
+                                                                            <?= $karyawan['nama_karyawan'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <button type="submit" name="btn_kirim"
+                                                                    class="btn btn-warning btn-sm">Kirim</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -168,20 +168,20 @@ if (isset($_POST['btn_kirim'])) {
         </div>
         <!-- END Main Content -->
 
-        <?php include "/xampp/htdocs/siatur/layouts/footer.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
     </div>
 
-    <script src="/siatur/plugins/jquery/jquery.min.js"></script>
-    <script src="/siatur/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/siatur/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="/siatur/dist/js/adminlte.js"></script>
-    <script src="/siatur/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="/siatur/plugins/raphael/raphael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-    <script src="/siatur/plugins/chart.js/Chart.min.js"></script>
-    <script src="/siatur/dist/js/demo.js"></script>
-    <script src="/siatur/dist/js/pages/dashboard2.js"></script>
+    <script src="/nsp/plugins/jquery/jquery.min.js"></script>
+    <script src="/nsp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/nsp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/nsp/dist/js/adminlte.js"></script>
+    <script src="/nsp/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/nsp/plugins/raphael/raphael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="/nsp/plugins/chart.js/Chart.min.js"></script>
+    <script src="/nsp/dist/js/demo.js"></script>
+    <script src="/nsp/dist/js/pages/dashboard2.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

@@ -1,5 +1,5 @@
-<?php 
-include "/xampp/htdocs/siatur/services/koneksi.php";
+<?php
+include "/xampp/htdocs/nsp/services/koneksi.php";
 
 if (isset($_POST['btn_submit'])) {
     $kode_barang = $_POST['kode_barang'];
@@ -9,9 +9,9 @@ if (isset($_POST['btn_submit'])) {
     $gambar_barang = $_FILES['gambar_barang']['name'];
     $tanggal_masuk = $_POST['tanggal_masuk'];
 
-    $dir_foto = "/xampp/htdocs/siatur/storage/img/";
+    $dir_foto = "/xampp/htdocs/nsp/storage/img/";
     $tmp_file = $_FILES['gambar_barang']['tmp_name'];
-    move_uploaded_file($tmp_file, $dir_foto.$gambar_barang);
+    move_uploaded_file($tmp_file, $dir_foto . $gambar_barang);
 
     if (empty($kode_barang) || empty($nama_barang) || empty($kondisi_barang) || empty($jumlah_barang) || empty($gambar_barang) || empty($tanggal_masuk)) {
         echo "<script type= 'text/javascript'>
@@ -36,7 +36,6 @@ if (isset($_POST['btn_submit'])) {
             </script>";
         }
     }
-
 }
 
 ?>
@@ -52,22 +51,22 @@ if (isset($_POST['btn_submit'])) {
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/siatur/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/siatur/plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="/siatur/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="/siatur/dist/css/adminlte.min.css">
-    <link rel="icon" href="/siatur/storage/nsp.jpg">
+    <link rel="stylesheet" href="/nsp/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/nsp/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/nsp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/nsp/dist/css/adminlte.min.css">
+    <link rel="icon" href="/nsp/storage/nsp.jpg">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php include "/xampp/htdocs/siatur/layouts/header.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/header.php" ?>
         <!-- Navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php include "/xampp/htdocs/siatur/layouts/sidebar.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/sidebar.php" ?>
         <!-- END Main Sidebar -->
 
         <!-- Main Content -->
@@ -143,35 +142,35 @@ if (isset($_POST['btn_submit'])) {
         <!-- END Main Content -->
 
         <!-- Main Footer -->
-        <?php include "/xampp/htdocs/siatur/layouts/footer.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
         <!-- End Footer -->
     </div>
 
-    <script src="/siatur/plugins/jquery/jquery.min.js"></script>
-    <script src="/siatur/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/nsp/plugins/jquery/jquery.min.js"></script>
+    <script src="/nsp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap-datetimepicker@4.17.47/build/js/bootstrap-datetimepicker.min.js">
     </script>
 
-    <script src="/siatur/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="/siatur/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="/siatur/plugins/inputmask/jquery.inputmask.min.js"></script>
-    <script src="/siatur/dist/js/adminlte.js"></script>
-    <script src="/siatur/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="/siatur/plugins/raphael/raphael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="/siatur/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-    <script src="/siatur/plugins/chart.js/Chart.min.js"></script>
-    <script src="/siatur/dist/js/demo.js"></script>
-    <script src="/siatur/dist/js/pages/dashboard2.js"></script>
+    <script src="/nsp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/nsp/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/nsp/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="/nsp/dist/js/adminlte.js"></script>
+    <script src="/nsp/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/nsp/plugins/raphael/raphael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/nsp/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="/nsp/plugins/chart.js/Chart.min.js"></script>
+    <script src="/nsp/dist/js/demo.js"></script>
+    <script src="/nsp/dist/js/pages/dashboard2.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="/siatur/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="/nsp/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script>
-    $(function() {
-        bsCustomFileInput.init();
-    });
+        $(function() {
+            bsCustomFileInput.init();
+        });
     </script>
 </body>
 

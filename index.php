@@ -5,12 +5,12 @@ date_default_timezone_set("Asia/Makassar");
 $tanggal = date('Y-m-d');
 $jam = date('H:i:s');
 
-$query_jumlahData ="SELECT 
+$query_jumlahData = "SELECT 
                             (SELECT COUNT(*) FROM karyawan) AS jumlah_dataKaryawan, 
                             (SELECT COUNT(*) FROM inventaris) AS jumlah_dataInventaris,
                             (SELECT COUNT(*) FROM material) AS jumlah_dataMaterial,
                             (SELECT COUNT(*) FROM psb) AS jumlah_dataPsb";
-$result_jumlahData = $conn -> query($query_jumlahData);
+$result_jumlahData = $conn->query($query_jumlahData);
 $jumlah_data = $result_jumlahData->fetch_assoc();
 
 ?>
@@ -36,11 +36,11 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php include "./layouts/header.php"?>
+        <?php include "./layouts/header.php" ?>
         <!-- Navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php include "./layouts/sidebar.php"?>
+        <?php include "./layouts/sidebar.php" ?>
         <!-- END Main Sidebar -->
 
         <!-- Main Content -->
@@ -49,8 +49,8 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
                 <div class="container-fluid text-black">
                     <div class="row mb-2">
                         <div class="col-sm-12">
-                            <h1 class="m-0">Selamat Datang <?= $_SESSION['nama_karyawan']?> , Anda Login Sebagai
-                                <?= $_SESSION['peran']?></h1>
+                            <h1 class="m-0">Selamat Datang <?= $_SESSION['nama_karyawan'] ?> , Anda Login Sebagai
+                                <?= $_SESSION['peran'] ?></h1>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -72,29 +72,29 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6">
-                            <a href="/siatur/admin/gudang/inventaris.php">
+                            <a href="/nsp/admin/gudang/inventaris.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold"
                                             style="font-size: 20px">INVENTARIS</span>
-                                        <span style="font-size: 30px"><?= $jumlah_data['jumlah_dataInventaris']?></span>
+                                        <span style="font-size: 30px"><?= $jumlah_data['jumlah_dataInventaris'] ?></span>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-lg-6">
-                            <a href="/siatur/admin/gudang/material.php">
+                            <a href="/nsp/admin/gudang/material.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold"
                                             style="font-size: 20px">MATERIAL</span>
-                                        <span style="font-size: 30px"><?= $jumlah_data['jumlah_dataMaterial']?></span>
+                                        <span style="font-size: 30px"><?= $jumlah_data['jumlah_dataMaterial'] ?></span>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-lg-6">
-                            <a href="/siatur/admin/karyawan/datakaryawan.php">
+                            <a href="/nsp/admin/karyawan/datakaryawan.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold"
@@ -105,7 +105,7 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
                             </a>
                         </div>
                         <!-- <div class="col-lg-4">
-                            <a href="/siatur/admin/pelanggan/pelanggan.php">
+                            <a href="/nsp/admin/pelanggan/pelanggan.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold" style="font-size: 20px">JUMLAH
@@ -116,19 +116,19 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
                             </a>
                         </div> -->
                         <div class="col-lg-6">
-                            <a href="/siatur/admin/pekerjaan/psb.php">
+                            <a href="/nsp/admin/pekerjaan/psb.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold"
                                             style="font-size: 20px">PEMASANGAN
                                             BARU</span>
-                                        <span style="font-size: 30px"><?= $jumlah_data['jumlah_dataPsb']?></span>
+                                        <span style="font-size: 30px"><?= $jumlah_data['jumlah_dataPsb'] ?></span>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <!-- <div class="col-lg-4">
-                            <a href="/siatur/admin/pekerjaan/perbaikan.php">
+                            <a href="/nsp/admin/pekerjaan/perbaikan.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold"
@@ -151,7 +151,7 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
         </aside>
 
         <!-- Main Footer -->
-        <?php include "./layouts/footer.php"?>
+        <?php include "./layouts/footer.php" ?>
         <!-- End Footer -->
     </div>
     <!-- ./wrapper -->

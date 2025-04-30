@@ -1,6 +1,6 @@
 <?php
-include "/xampp/htdocs/siatur/services/koneksi.php";
-include "/xampp/htdocs/siatur/library/fpdf.php";
+include "/xampp/htdocs/nsp/services/koneksi.php";
+include "/xampp/htdocs/nsp/library/fpdf.php";
 session_start();
 
 $sql = "
@@ -28,20 +28,20 @@ if (isset($_POST['cetak'])) {
 
     $logoPath = 'netsun.jpg';
     list($logoWidth, $logoHeight) = getimagesize($logoPath);
-    
-    $maxLogoHeight = 25;  
-    $maxLogoWidth = 50;  
+
+    $maxLogoHeight = 25;
+    $maxLogoWidth = 50;
     $scaleHeight = $maxLogoHeight / $logoHeight;
     $scaleWidth = $maxLogoWidth / $logoWidth;
-    $scale = min($scaleHeight, $scaleWidth); 
+    $scale = min($scaleHeight, $scaleWidth);
     $newLogoWidth = $logoWidth * $scale;
     $newLogoHeight = $logoHeight * $scale;
     $pdf = new FPDF('P', 'mm', 'A4');
     $pdf->AddPage();
     $pdf->Image($logoPath, 10, 10, $newLogoWidth, $newLogoHeight);
-    
+
     $pdf->SetFont('Arial', 'B', 14);
-    $pdf->Cell(60); 
+    $pdf->Cell(60);
     $pdf->Cell(0, 7, 'PT. Net Sun Power (NSP)', 0, 1, 'L');
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(60);
@@ -51,45 +51,45 @@ if (isset($_POST['cetak'])) {
     $pdf->Ln(5);
     $pdf->Cell(275, 0, '', 'B', 1, 'C');
     $pdf->Ln(5);
-    
-    
+
+
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->Cell(190, 10, 'Laporan Penggunaan Barang', 0, 1, 'C');
     $pdf->SetFont('Arial', 'I', 12);
     // $pdf->Cell(190, 10, "Bulan: $bulan_tulisan", 0, 1, 'C');
     $pdf->Ln(5);
-    
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(60, 10, 'Nama Barang', 1, 0, 'C');
     $pdf->Cell(40, 10, 'Jumlah Awal', 1, 0, 'C');
     $pdf->Cell(50, 10, 'Jumlah Yang Digunakan', 1, 0, 'C');
     $pdf->Cell(40, 10, 'Jumlah Sisa', 1, 1, 'C');
-    
-    
-    
+
+
+
     $pdf->SetFont('Arial', '', 10);
     while ($row = $result->fetch_assoc()) {
         $pdf->Cell(60, 10, $row['nama_barang'], 1, 0, 'C');
         $pdf->Cell(40, 10, $row['jumlah_awal'], 1, 0, 'C');
         $pdf->Cell(50, 10, $row['jumlah_digunakan'], 1, 0, 'C');
-        $pdf->Cell(40, 10, $row['jumlah_sisa'], 1, 1, 'C'); 
+        $pdf->Cell(40, 10, $row['jumlah_sisa'], 1, 1, 'C');
     }
-    
-    
+
+
     $pdf->Ln(15);
-    
+
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(120);
-    $pdf->Cell(70, 7, 'Banjarmasin, ' . date('d-m-Y'), 0, 1, 'C'); 
+    $pdf->Cell(70, 7, 'Banjarmasin, ' . date('d-m-Y'), 0, 1, 'C');
     $pdf->Ln(20);
-    
+
     $pdf->Cell(120);
     $pdf->Cell(70, 7, '______________________', 0, 1, 'C');
     $pdf->Cell(120);
     $pdf->Cell(70, 7, $_SESSION['nama_karyawan'], 0, 1, 'C');
     $pdf->Cell(120);
-    
-    
+
+
     $pdf->Output();
 }
 ?>
@@ -106,18 +106,18 @@ if (isset($_POST['cetak'])) {
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/siatur/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/siatur/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="/siatur/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="/siatur/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="/siatur/dist/css/adminlte.min.css">
-    <link rel="icon" href="/siatur/storage/nsp.jpg">
+    <link rel="stylesheet" href="/nsp/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/nsp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/nsp/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/nsp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/nsp/dist/css/adminlte.min.css">
+    <link rel="icon" href="/nsp/storage/nsp.jpg">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
-        <?php include "/xampp/htdocs/siatur/layouts/header.php"?>
-        <?php include "/xampp/htdocs/siatur/layouts/sidebar.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/header.php" ?>
+        <?php include "/xampp/htdocs/nsp/layouts/sidebar.php" ?>
 
         <!-- Main Content -->
         <div class="content-wrapper bg-gradient-white">
@@ -177,12 +177,12 @@ if (isset($_POST['cetak'])) {
                                             </thead>
                                             <tbody>
                                                 <?php while ($row = $result->fetch_assoc()): ?>
-                                                <tr>
-                                                    <td><?= $row['nama_barang'] ?></td>
-                                                    <td><?= $row['jumlah_awal'] ?></td>
-                                                    <td><?= $row['jumlah_digunakan'] ?></td>
-                                                    <td><?= $row['jumlah_sisa'] ?></td>
-                                                </tr>
+                                                    <tr>
+                                                        <td><?= $row['nama_barang'] ?></td>
+                                                        <td><?= $row['jumlah_awal'] ?></td>
+                                                        <td><?= $row['jumlah_digunakan'] ?></td>
+                                                        <td><?= $row['jumlah_sisa'] ?></td>
+                                                    </tr>
                                                 <?php endwhile; ?>
                                             </tbody>
                                         </table>
@@ -197,25 +197,25 @@ if (isset($_POST['cetak'])) {
         </div>
         <!-- END Main Content -->
 
-        <?php include "/xampp/htdocs/siatur/layouts/footer.php"?>
+        <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
     </div>
 
-    <script src="/siatur/plugins/jquery/jquery.min.js"></script>
-    <script src="/siatur/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/siatur/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/siatur/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/siatur/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/siatur/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="/siatur/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/siatur/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="/siatur/plugins/jszip/jszip.min.js"></script>
-    <script src="/siatur/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="/siatur/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="/siatur/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="/siatur/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="/siatur/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <script src="/siatur/dist/js/adminlte.min.js"></script>
-    <script src="/siatur/dist/js/demo.js"></script>
+    <script src="/nsp/plugins/jquery/jquery.min.js"></script>
+    <script src="/nsp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/nsp/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/nsp/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/nsp/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/nsp/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/nsp/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/nsp/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/nsp/plugins/jszip/jszip.min.js"></script>
+    <script src="/nsp/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/nsp/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/nsp/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/nsp/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/nsp/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="/nsp/dist/js/adminlte.min.js"></script>
+    <script src="/nsp/dist/js/demo.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
