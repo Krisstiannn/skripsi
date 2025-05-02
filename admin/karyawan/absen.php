@@ -12,7 +12,7 @@ $jam = date('H:i:s');
 $query_id_karyawan = "SELECT id FROM karyawan WHERE nip_karyawan = '$nip_karyawan'";
 $result_id = $conn->query($query_id_karyawan);
 
-$query_tampilData = "SELECT * FROM absen WHERE id_karyawan = '$id'";
+$query_tampilData = "SELECT * FROM absen";
 $tampil_data = $conn->query($query_tampilData);
 
 if (isset($_POST['btn_absen'])) {
