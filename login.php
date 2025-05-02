@@ -71,10 +71,12 @@ if (isset($_POST['btn_login'])) {
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name="password">
                     </div>
-                    <div class="row mt-2 mb-3">
+                    <div class="row mt-2">
                         <button type="submit" class="btn btn-block btn-primary" name="btn_login">
                             <i class="fab mr-2"></i> LOGIN
                         </button>
+                        <span class="mt-2 login-box-msg">Belum Memiliki Akun?<a href="register.php"> Klik
+                                Disini Untuk Membuat</a></span>
                     </div>
                 </form>
             </div>

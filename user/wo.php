@@ -65,15 +65,20 @@ $result = $conn->query($query);
                             </div>
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <div class="card-tools">
-                                        <div class="input-group input-group-sm" style="width: 150px;">
-                                            <input type="text" name="table_search" class="form-control float-right"
-                                                placeholder="Search">
+                                    <div class="card-header">
+                                        <a href="tambah-karyawan.php" class="btn btn-sm btn-danger ">On Progres</a>
+                                        <a href="tambah-karyawan.php" class="btn btn-sm btn-success ">Closed</a>
 
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-default">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
+                                        <div class="card-title float-right">
+                                            <div class="input-group input-group-sm" style="width: 150px;">
+                                                <input type="text" name="table_search" class="form-control float-right"
+                                                    placeholder="Search">
+
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-default">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

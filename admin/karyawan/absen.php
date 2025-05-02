@@ -3,6 +3,7 @@ include "/xampp/htdocs/nsp/services/koneksi.php";
 session_start();
 
 date_default_timezone_set('Asia/Makassar');
+$id = $_SESSION['id_karyawan'];
 $nip_karyawan = $_SESSION['nip'];
 $nama_karyawan = $_SESSION['nama_karyawan'];
 $tanggal = date('Y-m-d');
@@ -11,7 +12,7 @@ $jam = date('H:i:s');
 $query_id_karyawan = "SELECT id FROM karyawan WHERE nip_karyawan = '$nip_karyawan'";
 $result_id = $conn->query($query_id_karyawan);
 
-$query_tampilData = "SELECT * FROM absen";
+$query_tampilData = "SELECT * FROM absen WHERE id_karyawan = '$id'";
 $tampil_data = $conn->query($query_tampilData);
 
 if (isset($_POST['btn_absen'])) {
