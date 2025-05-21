@@ -62,7 +62,7 @@ if (isset($_POST['absen_keluar'])) {
                 header("Location: " . $_SERVER['PHP_SELF']);
             }
         } else {
-            echo "<script>alert('Anda sudah absen keluar hari ini!');</script>";
+            echo "<script>alert('Anda sudah melakukan absen keluar hari ini!');</script>";
             header("Location: " . $_SERVER['PHP_SELF']);
         }
     } else {

@@ -16,7 +16,7 @@ $result = $conn->query($query);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Working Order</title>
+    <title>Working Order | Perbaikan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -46,7 +46,7 @@ $result = $conn->query($query);
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Data Working Order</h1>
+                            <h1>Data Working Order Perbaikan</h1>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ $result = $conn->query($query);
                             <div class="card">
                                 <div class="card-header border-transparent">
                                     <div class="card-header">
-                                        <a href="tambah-karyawan.php" class="btn btn-sm btn-danger ">On Progres</a>
+                                        <a href="tambah-karyawan.php" class="btn btn-sm btn-warning ">On Progres</a>
                                         <a href="tambah-karyawan.php" class="btn btn-sm btn-success ">Closed</a>
 
                                         <div class="card-title float-right">

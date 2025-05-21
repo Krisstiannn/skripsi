@@ -62,33 +62,40 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <a href="wo.php">
+                        <div class="col-lg-6">
+                            <a href="wo_pemasangan.php">
                                 <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-red text-bold" style="font-size: 20px">Working
-                                            Order</span>
+                                            Order Pemasangan Baru</span>
                                         <span
                                             style="font-size: 30px"><?= $result_tampilJumlah['total_pekerjaan'] ?></span>
                                     </div>
                                 </div>
                             </a>
                         </div>
-
+                        <div class="col-lg-6">
+                            <a href="wo_perbaikan.php">
+                                <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text text-red text-bold" style="font-size: 20px">Working
+                                            Order Perbaikan</span>
+                                        <span
+                                            style="font-size: 30px"><?= $result_tampilJumlah['total_pekerjaan'] ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </section>
             <section class="content">
                 <img src="/nsp/storage/netsun.jpg" alt="No pict" width="1500px">
             </section>
         </div>
-        <!-- Enc Main Content -->
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
-
-        <!-- Main Footer -->
         <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
-        <!-- End Footer -->
     </div>
-    <!-- ./wrapper -->
+
 
 
     <script src="/nsp/plugins/jquery/jquery.min.js"></script>
