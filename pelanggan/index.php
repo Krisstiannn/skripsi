@@ -45,7 +45,7 @@
             <div class="space-y-10">
 
                 <!-- Kategori: SmartHome System -->
-                <div class="bg-gray-100 p-6 rounded-lg shadow">
+                <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-lg">
                     <h3 class="text-xl font-semibold text-blue-800 mb-4">NSP Home</h3>
                     <p class="mb-4 text-gray-700">Internet retail yang diperuntukan bagi rumahan.</p>
                     <ul class="space-y-2">
