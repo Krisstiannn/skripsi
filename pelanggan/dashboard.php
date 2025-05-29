@@ -32,11 +32,21 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                     <div class="content-header">
                         <div class="container-fluid text-black">
                             <div class="row mb-2">
-                                <div class="col-sm-6">
-                                    <h1 class="m-0">Selamat Datang , Anda Login Sebagai</h1>
+                                <div class="col-sm-12">
+                                    <h1 class="m-0">Selamat Datang ... di Website Resmi Net Sun Power</h1>
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="container-fluid ">
+                            <div class="row mb-2">
+                                <div class="col-sm-12">
+                                    <h1 class="m-0">PT Net Sun Power adalah perusahaan yang bergerak dibidang penyedia layanan internet atau Internet
+                                                    Service Provider (ISP), perusahaan kami hanya bergerak di daerah lokal saja
+                                                    yang artinya hanya bergerak di kalimantan selatan khususnya barito kuala.
+                                    </h1>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -89,7 +99,20 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                 </div>
             </div>
         </div>
-        <footer class="main-footer" style="text-align: center;">
+
+        <div class="card bg-light p-3">
+            <div class="text-center">
+                <h5 class="font-weight-bold text-primary">For more information, please contact here</h5>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <i class="fas fa-phone-alt text-danger mr-2"></i>
+                <span class="mr-1">WhatsApp:</span>
+                <a href="https://wa.me/6281234567890" class="text-primary">0812-3456-7890</a>
+            </div>
+        </div>
+
+
+        <footer class="main-footer bg-blue" style="text-align: center;">
             <strong>Copyright &copy; 2025 Net Sun Power.</strong> All rights
             reserved.
         </footer>
