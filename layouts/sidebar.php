@@ -12,7 +12,7 @@ if (isset($_POST['btn_logout'])) {
 
 <aside class="main-sidebar sidebar-dark-primary bg-blue shadow-lg elevation-5">
     <div class="brand-link bg-blue" style="border: none">
-        <img src=" /nsp/storage/nsp.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="/nsp/storage/nsp.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text text-light">Net Sun Power</span>
     </div>

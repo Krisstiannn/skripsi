@@ -23,35 +23,76 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
     <link rel="icon" href="/nsp/storage/netsun.jpg">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition layout-top-nav">
     <div class="wrapper">
-
-        <!-- Navbar -->
-        <?php include "/xampp/htdocs/nsp/layouts/header.php" ?>
-        <!-- Navbar -->
-
-        <!-- Main Sidebar Container -->
-        <?php include "/xampp/htdocs/nsp/layouts/sidebar-pelanggan.php" ?>
-        <!-- END Main Sidebar -->
-
-        <!-- Main Content -->
-        <div class="content-wrapper bg-gradient-white">
-            <div class="content-header">
-                <div class="container-fluid text-black">
-                    <div class="row mb-2">
-                        <!-- <div class="col-sm-6">
-                            <h1 class="m-0">Selamat Datang <?= $_SESSION['nama_karyawan'] ?> , Anda Login Sebagai
-                                <?= $_SESSION['peran'] ?></h1>
-                        </div> -->
+        <?php include "/xampp/htdocs/nsp/layouts/navbar.php" ?>
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="content-header">
+                        <div class="container-fluid text-black">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1 class="m-0">Selamat Datang , Anda Login Sebagai</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Daftar Harga Paket Wifi</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Jenis Paket</th>
+                                                <th>Kecepatan</th>
+                                                <th>Harga</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1.</td>
+                                                <td>Paket 3 Perangkat</td>
+                                                <td>3 Mbps</td>
+                                                <td>Rp. 130.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2.</td>
+                                                <td>Paket 5 Perangkat</td>
+                                                <td>5 Mbps</td>
+                                                <td>Rp. 160.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3.</td>
+                                                <td>Paket 8 Perangkat</td>
+                                                <td>8 Mbps</td>
+                                                <td>Rp. 175.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4.</td>
+                                                <td>Paket 12 Perangkat</td>
+                                                <td>10 Mbps</td>
+                                                <td>Rp. 210.000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <section class="content">
-                <div class="container-fluid">
-                </div>
-            </section>
         </div>
-        <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>
+        <footer class="main-footer" style="text-align: center;">
+            <strong>Copyright &copy; 2025 Net Sun Power.</strong> All rights
+            reserved.
+        </footer>
     </div>
 
 
