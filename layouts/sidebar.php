@@ -96,12 +96,12 @@ if (isset($_POST['btn_logout'])) {
                                 <p class="text-light">Pemasangan Baru</p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a href="/nsp/admin/pekerjaan/perbaikan.php" class="nav-link">
                                 <i class="far nav-icon"></i>
                                 <p class="text-light">Perbaikan</p>
                             </a>
-                        </li> -->
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

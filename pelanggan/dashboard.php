@@ -39,58 +39,16 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
             <div class="content-header">
                 <div class="container-fluid text-black">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <!-- <div class="col-sm-6">
                             <h1 class="m-0">Selamat Datang <?= $_SESSION['nama_karyawan'] ?> , Anda Login Sebagai
                                 <?= $_SESSION['peran'] ?></h1>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4">
-                            <i class="m-2" style="font-size: 20px;">Silahkan Absen Terlebih Dahulu</i>
-                        </div>
-                        <form action="absen.php" method="POST">
-                            <button type="submit" class="btn btn-sm btn-info text-bold" name="btn_absen">Absen
-                                Masuk</button>
-
-                            <button type="submit" class="btn btn-sm btn-info text-bold" name="absen_keluar">Absen
-                                Keluar</button>
-                        </form>
-
+                        </div> -->
                     </div>
                 </div>
             </div>
             <section class="content">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <a href="wo_pemasangan.php">
-                                <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-red text-bold" style="font-size: 20px">Working
-                                            Order Pemasangan Baru</span>
-                                        <span
-                                            style="font-size: 30px"><?= $result_tampilJumlah['total_pekerjaan'] ?></span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-6">
-                            <a href="wo_perbaikan.php">
-                                <div class="info-box bg-gradient-cyan shadow-lg text-lg-center">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-red text-bold" style="font-size: 20px">Working
-                                            Order Perbaikan</span>
-                                        <span
-                                            style="font-size: 30px"><?= $result_tampilJumlah['total_pekerjaan'] ?></span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
                 </div>
-            </section>
-            <section class="content">
-                <img src="/nsp/storage/netsun.jpg" alt="No pict" width="1500px">
             </section>
         </div>
         <?php include "/xampp/htdocs/nsp/layouts/footer.php" ?>

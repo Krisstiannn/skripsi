@@ -21,12 +21,23 @@ if (isset($_POST['btn_logout'])) {
         <nav class="mt-2 ">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="/nsp/user/index.php" class="nav-link">
+                    <a href="/nsp/pelanggan/dashboard.php" class="nav-link">
                         <ion-icon name="clipboard-outline" class="far nav-icon"></ion-icon>
                         <p class="text-light">Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item">
+                    <a href="/nsp/user/index.php" class="nav-link">
+                        <ion-icon name="clipboard-outline" class="far nav-icon"></ion-icon>
+                        <p class="text-light">Daftar Pemasangan Baru</p>
+                    </a>
+                </li><li class="nav-item">
+                    <a href="/nsp/user/index.php" class="nav-link">
+                        <ion-icon name="clipboard-outline" class="far nav-icon"></ion-icon>
+                        <p class="text-light">Laporan Kerusakan</p>
+                    </a>
+                </li>
+                <!-- <li class="nav-item ">
                     <a href="#" class="nav-link">
                         <ion-icon name="code-working-outline" class="far nav-icon"></ion-icon>
                         <p class="text-light">
@@ -48,12 +59,12 @@ if (isset($_POST['btn_logout'])) {
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="nav-item ">
                     <a href="../user/absen.php" class="nav-link">
                         <ion-icon name="people-outline" class="far nav-icon"></ion-icon>
                         <p class="text-light">
-                            Absen Pegawai
+                            Info Pribadi
                             <i class="right fas"></i>
                         </p>
                     </a>
