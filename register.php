@@ -24,13 +24,13 @@
                 <i class="h1">Net Sun Power</i>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Silahkan Login Terlebih Dahulu!</p>
+                <p class="login-box-msg">Buat Akun!</p>
 
                 <!-- <span class="text-center login-box-msg text-red mb-10"><?= $notifikasi_login ?></span> -->
 
                 <form action="register.php" method="POST">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username">
+                        <input type="text" class="form-control" placeholder="Email" name="email">
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name="password">

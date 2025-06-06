@@ -25,7 +25,7 @@ if (isset($_POST['btn_login'])) {
         $_SESSION['nama_karyawan'] = $data_login['nama_karyawan'];
         $_SESSION["peran"] = $data_login["peran"];
         if ($_SESSION["peran"] === "admin") {
-            header("location: index.php");
+            header("location: ./admin/index.php");
         } else if ($_SESSION["peran"] === "user") {
             header("location: ./user/index.php");
         }

@@ -21,7 +21,7 @@ if (isset($_POST['btn_logout'])) {
         <nav class="mt-2 ">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="/nsp/index.php" class="nav-link">
+                    <a href="/nsp/admin/index.php" class="nav-link">
                         <ion-icon name="clipboard-outline" class="far nav-icon"></ion-icon>
                         <p class="text-light">Dashboard</p>
                     </a>
