@@ -1,9 +1,44 @@
 <?php
 include "/xampp/htdocs/nsp/services/koneksi.php";
-session_start();
-$id_karyawan = $_SESSION['id_karyawan'] ?? null;
-$query_jumlah = "SELECT COUNT(*) AS total_pekerjaan FROM wo WHERE id_karyawan = '$id_karyawan'";
-$result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
+
+if (isset($_POST['btn_submit'])) {
+    $nama_pelanggan = $_POST['nama_pelanggan'];
+    $wa_pelanggan = $_POST['no_wa'];
+    $alamat = $_POST['alamat'];
+    $foto_rumah = $_FILES['foto_rumah']['name'];
+    $foto_ktp = $_FILES['foto_ktp']['name'];
+    $paket = $_POST['paket'];
+
+    $dir_foto = "/xampp/htdocs/nsp/storage/img/";
+    $tmp_fileRumah = $_FILES['foto_rumah']['tmp_name'];
+    $tmp_fileKtp = $_FILES['foto_ktp']['tmp_name'];
+    move_uploaded_file($tmp_fileRumah, $dir_foto . $foto_rumah);
+    move_uploaded_file($tmp_fileKtp, $dir_foto . $foto_ktp);
+
+    if (empty($nama_pelanggan) || empty($wa_pelanggan) || empty($alamat) || empty($foto_rumah) || empty($foto_ktp) || empty($paket)) {
+        echo "<script type= 'text/javascript'>
+                alert('Tolong isi data dengan benar!');
+                document.location.href = 'form_pemasangan.php';
+            </script>";
+        die();
+    } else {
+        $query_tambahData = "INSERT INTO psb (id, nama_pelanggan, wa_pelanggan, alamat_pelanggan, rumah_pelanggan, ktp_pelanggan, paket_internet) 
+        VALUES ('', '$nama_pelanggan', '$wa_pelanggan', '$alamat','$foto_rumah', '$foto_ktp', '$paket')";
+        $result_tambahData = $conn->query($query_tambahData);
+
+        if ($result_tambahData) {
+            echo "<script type= 'text/javascript'>
+                alert('Pendaftaran Pemasangan Berhasil, Silahkan Tunggu!');
+                document.location.href = 'dashboard.php';
+            </script>";
+        } else {
+            echo "<script type= 'text/javascript'>
+                alert('Data Gagal disimpan!');
+                document.location.href = 'form_pemasangan.php';
+            </script>";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +46,7 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
+    <title>Dashboard Pemasangan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -45,20 +80,22 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                                 <div class="card-header">
                                     <h3 class="card-title">Input Data Pemasangan Baru</h3>
                                 </div>
-                                <form action="tambah-psb.php" method="POST" enctype="multipart/form-data">
+                                <form action="form_pemasangan.php" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nama">Nama Pelanggan</label>
                                             <input type="text" class="form-control" name="nama_pelanggan"
-                                                placeholder="Nama Pelanggan">
+                                                placeholder="Nama Pelanggan" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="whatsapp">No WA</label>
-                                            <input type="text" class="form-control" name="no_wa" placeholder="NO WA">
+                                            <input type="text" class="form-control" name="no_wa" placeholder="NO WA"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat">Alamat atau Titik Kordinat</label>
-                                            <textarea type="text" class="form-control" id="keluhan" placeholder="Alamat Lengkap Rumah"></textarea>
+                                            <textarea type="text" class="form-control" id="keluhan"
+                                                placeholder="Alamat Lengkap Rumah" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="rumah">Foto Rumah</label>
@@ -66,7 +103,8 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" name="foto_rumah"
                                                         accept="img/*">
-                                                    <label class="custom-file-label" for="exampleInputFile"></label>
+                                                    <label class="custom-file-label" for="exampleInputFile"
+                                                        required></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,21 +112,23 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                                             <label for="ktp">Foto KTP</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="foto_ktp" accept="img/*">
-                                                    <label class="custom-file-label" for="exampleInputFile"></label>
+                                                    <input type="file" class="custom-file-input" name="foto_ktp"
+                                                        accept="img/*">
+                                                    <label class="custom-file-label" for="exampleInputFile"
+                                                        required></label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                    <label for="paket">Pilihan Paket Internet</label>
-                                    <select class="custom-select" name="paket">
-                                        <option>-- Pilih --</option>
-                                        <option>Paket 3 Perangkat</option>
-                                        <option>Paket 5 Perangkat</option>
-                                        <option>Paket 8 Perangkat</option>
-                                        <option>Paket 12 Perangkat</option>
-                                    </select>
-                                </div>
+                                            <label for="paket">Pilihan Paket Internet</label>
+                                            <select class="custom-select" name="paket" required>
+                                                <option>-- Pilih --</option>
+                                                <option>Paket 3 Perangkat</option>
+                                                <option>Paket 5 Perangkat</option>
+                                                <option>Paket 8 Perangkat</option>
+                                                <option>Paket 12 Perangkat</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-success" name="btn_submit">Submit</button>
@@ -123,9 +163,9 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
-        $(function() {
-            bsCustomFileInput.init();
-        });
+    $(function() {
+        bsCustomFileInput.init();
+    });
     </script>
 </body>
 

@@ -1,9 +1,14 @@
 <?php
 include "/xampp/htdocs/nsp/services/koneksi.php";
 session_start();
-$id_karyawan = $_SESSION['id_karyawan'] ?? null;
-$query_jumlah = "SELECT COUNT(*) AS total_pekerjaan FROM wo WHERE id_karyawan = '$id_karyawan'";
-$result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
+
+if (isset($_POST['btn_submit'])) {
+    $nama_pelanggan = $_POST['nama_pelanggan'];
+    $no_telp = $_POST['no_wa'];
+    $alamat = $_POST['alamat'];
+    $keluhan = $_POST['keluhan'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,11 +63,13 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat">Alamat atau Titik Kordinat</label>
-                                            <textarea type="text" class="form-control" id="keluhan" placeholder="Alamat Lengkap Rumah"></textarea>
+                                            <textarea type="text" class="form-control" id="keluhan"
+                                                placeholder="Alamat Lengkap Rumah"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="keluhan">Keluhan</label>
-                                            <textarea type="text" class="form-control" id="keluhan" placeholder="Tuliskan detail keluhan"></textarea>
+                                            <textarea type="text" class="form-control" id="keluhan"
+                                                placeholder="Tuliskan detail keluhan"></textarea>
                                         </div>
                                     </div>
                                     <div class="card-footer">

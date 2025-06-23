@@ -1,7 +1,8 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white bg-blue">
     <div class="container">
         <p href="#" class="navbar-brand">
-            <img src="/nsp/storage/nsp.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="/nsp/storage/nsp.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                style="opacity: .8">
             <span class="brand-text text-light">Net Sun Power</span>
         </p>
 
@@ -12,6 +13,9 @@
 
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/nsp/pelanggan/dashboard.php" class="nav-link text-light">Dashboard</a>
+                </li>
                 <li class="nav-item">
                     <a href="/nsp/pelanggan/pembayaran.php" class="nav-link text-light">Pembayaran</a>
                 </li>
@@ -31,7 +35,8 @@
                 <span class="text-light mr-2">Nama dirimu</span>
 
                 <!-- Ikon Profil -->
-                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link p-0">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    class="nav-link p-0">
                     <ion-icon style="color: white;" name="person-sharp" size="large" class="far nav-icon"></ion-icon>
                 </a>
 
@@ -40,7 +45,8 @@
                     <li><a href="./reset_password.php" class="dropdown-item">Reset Password</a></li>
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-submenu dropdown-hover">
-                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item">Log Out</a>
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="dropdown-item">Log Out</a>
                     </li>
                 </ul>
             </li>
