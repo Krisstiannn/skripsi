@@ -7,8 +7,30 @@ if (isset($_POST['btn_submit'])) {
     $no_telp = $_POST['no_wa'];
     $alamat = $_POST['alamat'];
     $keluhan = $_POST['keluhan'];
-}
 
+    if (empty($nama_pelanggan) || empty($no_telp) || empty($alamat) || empty($keluhan)) {
+        echo "<script type= 'text/javascript'>
+                alert('Tolong isi data dengan benar!');
+                document.location.href = 'form_pemasangan.php';
+            </script>";
+        die();
+    } else {
+        $query_tambah = "INSERT INTO perbaikan (id_perbaikan, nama_pelanggan, no_telp, alamat, keluhan) VALUES ('', '$nama_pelanggan', '$no_telp', '$alamat', '$keluhan')";
+        $result_tambah = $conn->query($query_tambah);
+
+        if ($result_tambah) {
+            echo "<script type= 'text/javascript'>
+                alert('Laporan Anda Berhasil , Silahkan Tunggu!');
+                document.location.href = 'dashboard.php';
+            </script>";
+        } else {
+            echo "<script type= 'text/javascript'>
+                alert('Data Gagal disimpan!');
+                document.location.href = 'form_pemasangan.php';
+            </script>";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,9 +127,9 @@ if (isset($_POST['btn_submit'])) {
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
-        $(function() {
-            bsCustomFileInput.init();
-        });
+    $(function() {
+        bsCustomFileInput.init();
+    });
     </script>
 </body>
 
