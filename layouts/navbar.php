@@ -19,30 +19,37 @@
                 <li class="nav-item">
                     <a href="/nsp/pelanggan/pembayaran.php" class="nav-link text-light">Pembayaran</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/nsp/pelanggan/form_pemasangan.php" class="nav-link text-light">Daftar Pemasangan</a>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle text-light">Pemasangan </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="/nsp/pelanggan/form_pemasangan.php" class="dropdown-item nav-link ">Daftar Pemasangan </a></li>
+                        <li><a href="/nsp/pelanggan/status_pemasangan.php" class="dropdown-item nav-link ">Status Pemasangan </a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="/nsp/pelanggan/form_laporan.php" class="nav-link text-light">Lapor Kerusakan</a>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle text-light">Perbaikan </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="/nsp/pelanggan/form_laporan.php" class="dropdown-item nav-link ">Buat Laporan </a></li>
+                        <li><a href="/nsp/pelanggan/status_perbaikan.php" class="dropdown-item nav-link">Status Perbaikan</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
 
-        <!-- Profil + Angka -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
             <li class="nav-item dropdown d-flex align-items-center">
-                <!-- Angka 1 -->
                 <span class="text-light mr-2">Nama dirimu</span>
 
-                <!-- Ikon Profil -->
                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     class="nav-link p-0">
                     <ion-icon style="color: white;" name="person-sharp" size="large" class="far nav-icon"></ion-icon>
                 </a>
 
                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                    <li><a href="./profile.php" class="dropdown-item">Profile</a></li>
-                    <li><a href="./reset_password.php" class="dropdown-item">Reset Password</a></li>
+                    <li><a href="/nsp/pelanggan/profile.php" class="dropdown-item">Profile</a></li>
+                    <li><a href="/nsp/pelanggan/reset_password.php" class="dropdown-item">Reset Password</a></li>
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-submenu dropdown-hover">
                         <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"

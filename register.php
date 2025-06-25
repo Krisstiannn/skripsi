@@ -1,3 +1,34 @@
+<?php
+include "./services/koneksi.php";
+
+$notifikasi = "";
+if (isset($_POST['btn_register'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $re_type = $_POST['re_type'];
+
+    if ($password === $re_type) {
+        $notifikasi = "password tidak sama";
+        header("LOCATION: register.php");
+        die();
+    } else {
+        $query_tambah = "INSERT INTO users (id_users, username, password, peran) VALUES ('', '$email', '$password', 'pelanggan')";
+        $result_tambah = $conn->query($query_tambah);
+
+        if ($result_tambah) {
+            echo "<script type= 'text/javascript'>
+                alert('Registrasi Berhasil');
+                document.location.href = 'login.php';
+            </script>";
+        } else {
+            echo "<script type= 'text/javascript'>
+                alert('pendaftaran gagal!');
+                document.location.href = 'register.php';
+            </script>";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,17 +57,17 @@
             <div class="card-body">
                 <p class="login-box-msg">Buat Akun!</p>
 
-                <!-- <span class="text-center login-box-msg text-red mb-10"><?= $notifikasi_login ?></span> -->
+                <span class="text-center login-box-msg text-red mb-10"><?= $notifikasi?></span>
 
                 <form action="register.php" method="POST">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Email" name="email">
+                        <input type="text" class="form-control" placeholder="Email" name="email" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Konfirmasi Password" name="re_type">
+                        <input type="password" class="form-control" placeholder="Konfirmasi Password" name="re_type" required>
                     </div>
                     <div class="row mt-2 mb-3">
                         <button type="submit" class="btn btn-block btn-primary" name="btn_register">
