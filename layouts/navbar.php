@@ -16,23 +16,34 @@
                 <li class="nav-item">
                     <a href="/nsp/pelanggan/dashboard.php" class="nav-link text-light">Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/nsp/pelanggan/pembayaran.php" class="nav-link text-light">Pembayaran</a>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle text-light">Pembayaran </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="/nsp/pelanggan/pembayaran.php" class="dropdown-item nav-link ">Portal
+                                Pembayaran </a></li>
+                        <li><a href="/nsp/pelanggan/invoice_pemasangan.php" class="dropdown-item nav-link ">Invoice
+                                Pembayaran </a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle text-light">Pemasangan </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="/nsp/pelanggan/form_pemasangan.php" class="dropdown-item nav-link ">Daftar Pemasangan </a></li>
-                        <li><a href="/nsp/pelanggan/status_pemasangan.php" class="dropdown-item nav-link ">Status Pemasangan </a></li>
+                        <li><a href="/nsp/pelanggan/form_pemasangan.php" class="dropdown-item nav-link ">Daftar
+                                Pemasangan </a></li>
+                        <li><a href="/nsp/pelanggan/status_pemasangan.php" class="dropdown-item nav-link ">Status
+                                Pemasangan </a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle text-light">Perbaikan </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="/nsp/pelanggan/form_laporan.php" class="dropdown-item nav-link ">Buat Laporan </a></li>
-                        <li><a href="/nsp/pelanggan/status_perbaikan.php" class="dropdown-item nav-link">Status Perbaikan</a></li>
+                        <li><a href="/nsp/pelanggan/form_laporan.php" class="dropdown-item nav-link ">Buat Laporan </a>
+                        </li>
+                        <li><a href="/nsp/pelanggan/status_perbaikan.php" class="dropdown-item nav-link">Status
+                                Perbaikan</a></li>
                     </ul>
                 </li>
             </ul>

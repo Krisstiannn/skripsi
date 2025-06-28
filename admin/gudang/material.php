@@ -119,38 +119,56 @@ $conn->close();
                                                     <th>Nama Barang</th>
                                                     <th>Jumlah Awal Barang</th>
                                                     <th>Jumlah Sisa Barang</th>
+                                                    <th>Satuan</th>
                                                     <th>Tanggal Masuk Barang</th>
+                                                    <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <?php foreach ($result_tampilData as $material) { ?>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><?= $material['kode_barang'] ?></td>
-                                                        <td><img src="/nsp/storage/img/<?= $material['gambar_barang'] ?>"
-                                                                alt="<?= $material['gambar_barang'] ?>"
-                                                                style="width: 150px;"></td>
-                                                        <td><?= $material['nama_barang'] ?></td>
-                                                        <td><?= $material['jumlah_awal'] ?></td>
-                                                        <td><?= $material['jumlah_sisa'] ?></td>
-                                                        <td><?= date('d-m-Y', strtotime($material['tanggal_masuk'])) ?>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-info btn-xs"
-                                                                href="edit-material.php?id=<?= $material['id'] ?>">
-                                                                <i class="fas fa-pencil-alt">
-                                                                </i>
-                                                                Edit
-                                                            </a>
-                                                            <a class="btn btn-danger btn-xs"
-                                                                href="hapus-material.php?id=<?= $material['id'] ?>">
-                                                                <i class="fas fa-trash">
-                                                                </i>
-                                                                Delete
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $material['kode_barang'] ?></td>
+                                                    <td><img src="/nsp/storage/img/<?= $material['gambar_barang'] ?>"
+                                                            alt="<?= $material['gambar_barang'] ?>"
+                                                            style="width: 150px;"></td>
+                                                    <td><?= $material['nama_barang'] ?></td>
+                                                    <td><?= $material['jumlah_awal'] ?></td>
+                                                    <td><?= $material['jumlah_sisa'] ?></td>
+                                                    <td><?= $material['satuan'] ?></td>
+                                                    <td><?= date('d-m-Y', strtotime($material['tanggal_masuk'])) ?></td>
+                                                    <?php
+                                                        $status = "";
+                                                        $sisa = $material['jumlah_sisa'];
+                                                        $awal = $material['jumlah_awal'];
+
+                                                        if ($sisa == $awal) {
+                                                            $status = '<span class="badge badge-success">MASIH TERSEDIA</span>';
+                                                        } else if ($sisa == ($awal * 0.5)) {
+                                                            $status = '<span class="badge badge-warning">SETENGAH</span>';
+                                                        } else if ($sisa <= ($awal * 0.25)) {
+                                                            $status = '<span class="badge badge-danger">PERLU DIRESTOL!</span>';
+                                                        } else {
+                                                            $status = '';
+                                                        }
+                                                        ?>
+                                                    <td><?= $status ?></td>
+                                                    <td>
+                                                        <a class="btn btn-info btn-xs"
+                                                            href="edit-material.php?id=<?= $material['id'] ?>">
+                                                            <i class="fas fa-pencil-alt">
+                                                            </i>
+                                                            Edit
+                                                        </a>
+                                                        <a class="btn btn-danger btn-xs"
+                                                            href="hapus-material.php?id=<?= $material['id'] ?>">
+                                                            <i class="fas fa-trash">
+                                                            </i>
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                             <?php } ?>
                                         </table>
                                     </div>

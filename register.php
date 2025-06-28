@@ -55,9 +55,9 @@ if (isset($_POST['btn_register'])) {
                 <i class="h1">Net Sun Power</i>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Buat Akun!</p>
+                <p class="login-box-msg">Silahkan Buat Akun Terlebih Dahulu</p>
 
-                <span class="text-center login-box-msg text-red mb-10"><?= $notifikasi?></span>
+                <span class="text-center login-box-msg text-red mb-10"><?= $notifikasi ?></span>
 
                 <form action="register.php" method="POST">
                     <div class="input-group mb-3">
@@ -67,7 +67,8 @@ if (isset($_POST['btn_register'])) {
                         <input type="password" class="form-control" placeholder="Password" name="password" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Konfirmasi Password" name="re_type" required>
+                        <input type="password" class="form-control" placeholder="Konfirmasi Password" name="re_type"
+                            required>
                     </div>
                     <div class="row mt-2 mb-3">
                         <button type="submit" class="btn btn-block btn-primary" name="btn_register">

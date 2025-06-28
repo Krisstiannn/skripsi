@@ -115,6 +115,7 @@ if (isset($_POST['btn_submit'])) {
                                         <option>-- Pilih --</option>
                                         <option>Baru</option>
                                         <option>Bekas</option>
+                                        <option>Rusak</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

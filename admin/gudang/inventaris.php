@@ -1,8 +1,22 @@
 <?php
 include "/xampp/htdocs/nsp/services/koneksi.php";
 
-$query_tampilData = "SELECT * FROM inventaris";
+$kondisi = isset($_GET['kondisi_barang']) ? $_GET['kondisi_barang'] : '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+if (!empty($kondisi)) {
+    $query_tampilData = "SELECT * FROM inventaris WHERE kondisi_barang LIKE '%$kondisi%'";
+} else {
+    $query_tampilData = "SELECT * FROM inventaris";
+}
+
+if (!empty($search)) {
+    $query_tampilData = "SELECT * FROM inventaris WHERE kode_barang LIKE '%$search%' OR nama_barang LIKE '%$search%'";
+} else {
+    $query_tampilData = "SELECT * FROM inventaris";
+}
 $result_tampilData = $conn->query($query_tampilData);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,26 +73,52 @@ $result_tampilData = $conn->query($query_tampilData);
                             </div>
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
                                         <div class="card-title">
-                                            <a href="tambah-inventaris.php" class="btn btn-sm btn-success ">Tambah
+                                            <a href="tambah-inventaris.php" class="btn btn-sm btn-success">Tambah
                                                 Data</a>
                                         </div>
+                                        <form action="" method="GET">
+                                            <div class="ml-auto d-flex align-items-center gap-2" style="gap: 10px;">
+                                                <label for="kondisi" class="mb-0 mr-2"><strong>Kondisi
+                                                        Barang :</strong></label>
 
-                                        <div class="card-title float-right">
-                                            <div class="input-group input-group-sm" style="width: 150px;">
-                                                <input type="text" name="table_search" class="form-control float-right"
-                                                    placeholder="Search">
+                                                <div class="input-group input-group-sm" style="width: 180px;">
+                                                    <select class="custom-select" name="kondisi_barang"
+                                                        style="width: 130px;">
+                                                        <option value="<?= htmlspecialchars($kondisi) ?>">-- Pilih --
+                                                        </option>
+                                                        <option>Baru</option>
+                                                        <option>Bekas</option>
+                                                        <option>Rusak</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
 
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
+                                                <div class="input-group input-group-sm" style="width: 180px;">
+                                                    <input type="text" name="search" class="form-control"
+                                                        placeholder="Search" value="<?= htmlspecialchars($search) ?>">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-group input-group-sm" style="width: 180px;">
+                                                    <a href="inventaris.php" class="btn btn-danger"
+                                                        name="reset">Reset</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
+
+
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
                                         <table class="table table-bordered text-center">

@@ -28,6 +28,8 @@ if (isset($_POST['btn_login'])) {
             header("location: ./admin/index.php");
         } else if ($_SESSION["peran"] === "user") {
             header("location: ./user/index.php");
+        } else if ($_SESSION["peran"] === "pelanggan") {
+            header("location: ./pelanggan/dashboard.php");
         }
     } else {
         $notifikasi_login = "USERNAME ATAU PASSWORD SALAH!!!";
