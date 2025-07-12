@@ -15,21 +15,24 @@ if (isset($_POST['btn_submit'])) {
         die();
     }
 
-    $query_nipKaryawan = "SELECT * FROM karyawan";
-    $result_nipKaryawan = $conn->query($query_nipKaryawan)->fetch_assoc();
+    $query_nipKaryawan = "SELECT * FROM karyawan WHERE nip_karyawan = '$nip_karyawan'";
+    $result_nipKaryawan = $conn->query($query_nipKaryawan);
 
-    if ($result_nipKaryawan['nip_karyawan'] === $nip_karyawan) {
+    if ($result_nipKaryawan->num_rows>0) {
         echo "<script type= 'text/javascript'>
             alert('NIP Karyawan Sudah Ada!');
             document.location.href = 'tambah-karyawan.php';
         </script>";
-        die();
-    } else {
+        exit;
+    } 
+    
+    $query_tambahAkun = "INSERT INTO users (id_users, username, password, peran) VALUES ('', '$nip_karyawan', '$nama_karyawan', '$jabatan_karyawan')";
+    $result_tambahAkun = $conn->query($query_tambahAkun);
+
+    if ($result_tambahAkun) {
         $query_tambahKaryawan = "INSERT INTO karyawan (id, nip_karyawan, nama_karyawan, posisi_karyawan) 
         VALUES ('','$nip_karyawan', '$nama_karyawan','$jabatan_karyawan')";
-        $query_tambahAkun = "INSERT INTO users (id_users, username, password, peran) VALUES ('', '$nip_karyawan', '$nama_karyawan', '$jabatan_karyawan')";
         $result_tambahKaryawan = $conn->query($query_tambahKaryawan);
-        $result_tambahAkun = $conn->query($query_tambahAkun);
 
         if ($result_tambahKaryawan) {
             echo "<script type= 'text/javascript'>
@@ -42,6 +45,11 @@ if (isset($_POST['btn_submit'])) {
                 document.location.href = 'tambah-karyawan.php';
             </script>";
         }
+    } else {
+        echo "<script>
+            alert('Gagal membuat user: {$conn->error}');
+            window.location.href = 'tambah-karyawan.php';
+        </script>";
     }
 }
 ?>
@@ -110,10 +118,10 @@ if (isset($_POST['btn_submit'])) {
                                     <label for="jabatan">Jabatan Karyawan</label>
                                     <select class="custom-select" name="jabatan_karyawan">
                                         <option>-- Pilih --</option>
-                                        <option>Admin</option>
-                                        <option>IT</option>
-                                        <option>Teknisi</option>
-                                        <option>Supervisior</option>
+                                        <option>admin</option>
+                                        <option>it</option>
+                                        <option>teknisi</option>
+                                        <option>supervisior</option>
                                     </select>
                                 </div>
                             </div>

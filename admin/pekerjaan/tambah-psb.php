@@ -1,5 +1,25 @@
 <?php
 include "/xampp/htdocs/nsp/services/koneksi.php";
+$id_langganan = "";
+$tanggal = date('d-m-Y');
+
+function generateIdLangganan ($tanggal, $conn) {
+    $date = date_create($tanggal);
+    $tgl = date_format($date, 'd');
+    $bln = date_format($date, 'm');
+    $thn = date_format($date, 'y');
+
+    do{
+        $acak = str_pad(mt_rand(0, 999), 4, '0', STR_PAD_LEFT);
+        $id = "21" . $tgl . $bln . $thn . $acak;
+
+        $cek =$conn->query("SELECT * FROM pelanggan WHERE id_langganan = '$id'");
+    } while ($cek->num_rows>0);
+
+    return $id;
+}
+
+$id_langganan = generateIdLangganan($tanggal, $conn);
 
 if (isset($_POST['btn_submit'])) {
     $nama_pelanggan = $_POST['nama_pelanggan'];
@@ -22,8 +42,8 @@ if (isset($_POST['btn_submit'])) {
             </script>";
         die();
     } else {
-        $query_tambahData = "INSERT INTO psb (id, nama_pelanggan, wa_pelanggan, alamat_pelanggan, rumah_pelanggan, ktp_pelanggan, paket_internet) 
-        VALUES ('', '$nama_pelanggan', '$wa_pelanggan', '$alamat','$foto_rumah', '$foto_ktp', '$paket')";
+        $query_tambahData = "INSERT INTO psb (id, id_langganan, nama_pelanggan, wa_pelanggan, alamat_pelanggan, rumah_pelanggan, ktp_pelanggan, paket_internet) 
+        VALUES ('', '$id_langganan', '$nama_pelanggan', '$wa_pelanggan', '$alamat','$foto_rumah', '$foto_ktp', '$paket')";
         $result_tambahData = $conn->query($query_tambahData);
 
         if ($result_tambahData) {
@@ -85,6 +105,11 @@ if (isset($_POST['btn_submit'])) {
                         </div>
                         <form action="tambah-psb.php" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="id_langganan">ID Berlangganan</label>
+                                    <input type="text" class="form-control" name="id_langganan"
+                                        placeholder="ID Berlangganan" value="<?= $id_langganan?>" disabled>
+                                </div>
                                 <div class="form-group">
                                     <label for="nama">Nama Pelanggan</label>
                                     <input type="text" class="form-control" name="nama_pelanggan"

@@ -97,6 +97,11 @@ if (isset($_POST['btn_submit'])) {
                                         value="<?= $result_tampiData['kode_barang'] ?>">
                                 </div>
                                 <div class="form-group">
+                                    <label for="sn">Serial Number Barang</label>
+                                    <input type="text" class="form-control" name="sn_barang" placeholder="Serial Number Barang"
+                                        value="<?= $result_tampiData['kode_barang'] ?>">
+                                </div>
+                                <div class="form-group">
                                     <label for="gambar">Gambar Barang</label>
                                     <div class="input-group">
                                         <div class="custom-file">
@@ -114,6 +119,18 @@ if (isset($_POST['btn_submit'])) {
                                     <label for="nama">Nama Barang</label>
                                     <input type="text" class="form-control" name="nama_barang"
                                         placeholder="Masukkan Nama Barang"
+                                        value="<?= $result_tampiData['nama_barang'] ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Spesifikasi">Spesifikasi Barang</label>
+                                    <input type="text" class="form-control" name="spesifikasi"
+                                        placeholder="Masukkan Spesifikasi Barang"
+                                        value="<?= $result_tampiData['nama_barang'] ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Jenis">Jenis Barang</label>
+                                    <input type="text" class="form-control" name="jenis_barang"
+                                        placeholder="Masukkan Jenis Barang"
                                         value="<?= $result_tampiData['nama_barang'] ?>">
                                 </div>
                                 <div class="form-group">

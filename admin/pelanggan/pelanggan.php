@@ -90,21 +90,30 @@ if (isset($_POST['cari'])) {
                                         <table class="table table-bordered text-center">
                                             <thead class="bg-gradient-cyan">
                                                 <tr>
-                                                    <th>Nama Pelanggan</th>
-                                                    <th>Alamat Rumah/Tikor</th>
-                                                    <th>No WhatsApp</th>
-                                                    <th>Jenis Layanan</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th rowspan="2">ID Berlangganan</th>
+                                                    <th rowspan="2">Nama Pelanggan</th>
+                                                    <th rowspan="2">Alamat Rumah/Tikor</th>
+                                                    <th rowspan="2">No WhatsApp</th>
+                                                    <th rowspan="2">Jenis Layanan</th>
+                                                    <th colspan="2">ID Login</th>
+                                                    <th rowspan="2">Status</th>
+                                                    <th rowspan="2">Action</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
                                                 </tr>
                                             </thead>
                                             <?php foreach ($result_dataPelanggan as $pelanggan) { ?>
                                                 <tbody>
                                                     <tr>
+                                                        <tr>ID Berlangganan</tr>
                                                         <td><?= $pelanggan['nama_pelanggan'] ?></td>
                                                         <td><?= $pelanggan['alamat_pelanggan'] ?></td>
                                                         <td><?= $pelanggan['wa_pelanggan'] ?></td>
                                                         <td><?= $pelanggan['jenis_layanan'] ?></td>
+                                                        <td><?= $pelanggan['username']?></td>
+                                                        <td><?= $pelanggan['password']?></td>
                                                         <td><?= $pelanggan['status_pelanggan'] ?></td>
                                                         <td>
                                                             <a class="btn btn-info btn-sm"

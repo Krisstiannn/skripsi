@@ -4,7 +4,6 @@ session_start();
 
 $notifikasi = "";
 if (isset($_POST['btn_reset'])) {
-    $email = $_POST['email'];
     $password = $_POST['password'];
     $re_type = $_POST['re_type'];
 
@@ -13,17 +12,17 @@ if (isset($_POST['btn_reset'])) {
         header("LOCATION: register.php");
         die();
     } else {
-        $query_tambah = "INSERT INTO users (id_users, username, password, peran) VALUES ('', '$email', '$password', 'pelanggan')";
-        $result_tambah = $conn->query($query_tambah);
+        $query_reset = "UPDATE `users` SET `password` = '$re_type' WHERE `users`.`id_users` = 14";
+        $result_reset = $conn->query($query_reset);
 
-        if ($result_tambah) {
+        if ($result_reset) {
             echo "<script type= 'text/javascript'>
-                alert('Registrasi Berhasil');
+                alert('Password Berhasil dirubah');
                 document.location.href = 'login.php';
             </script>";
         } else {
             echo "<script type= 'text/javascript'>
-                alert('pendaftaran gagal!');
+                alert('Password Gagal di rubah!');
                 document.location.href = 'register.php';
             </script>";
         }
@@ -56,7 +55,7 @@ if (isset($_POST['btn_reset'])) {
                 <i class="h1">Net Sun Power</i>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Silahkan Buat Akun Terlebih Dahulu</p>
+                <p class="login-box-msg">Silahkan Masukkan Password Baru</p>
 
                 <span class="text-center login-box-msg text-red mb-10"><?= $notifikasi ?></span>
 

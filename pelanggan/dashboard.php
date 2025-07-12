@@ -96,54 +96,6 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Daftar Harga Paket Wifi</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table class="table table-bordered text-center">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 10px">#</th>
-                                                <th>Jenis Paket</th>
-                                                <th>Kecepatan</th>
-                                                <th>Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1.</td>
-                                                <td>Paket 3 Perangkat</td>
-                                                <td>3 Mbps</td>
-                                                <td>Rp. 130.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2.</td>
-                                                <td>Paket 5 Perangkat</td>
-                                                <td>5 Mbps</td>
-                                                <td>Rp. 160.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3.</td>
-                                                <td>Paket 8 Perangkat</td>
-                                                <td>8 Mbps</td>
-                                                <td>Rp. 175.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4.</td>
-                                                <td>Paket 12 Perangkat</td>
-                                                <td>10 Mbps</td>
-                                                <td>Rp. 210.000</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

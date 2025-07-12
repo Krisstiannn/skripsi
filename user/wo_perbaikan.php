@@ -4,9 +4,9 @@ session_start();
 
 $id_karyawan = $_SESSION['id_karyawan'] ?? null;
 
-$query = "SELECT psb.nama_pelanggan, psb.alamat_pelanggan, psb.id, wo.id_karyawan
-            FROM psb 
-            JOIN wo ON wo.id_pekerjaan = psb.id 
+$query = "SELECT perbaikan.nama_pelanggan, perbaikan.alamat, perbaikan.id_perbaikan, perbaikan.id_berlangganan, perbaikan.keluhan, perbaikan.no_telp, wo.id_karyawan
+            FROM perbaikan 
+            JOIN wo ON wo.id_perbaikan = perbaikan.id_perbaikan 
             WHERE wo.id_karyawan = '$id_karyawan'";
 $result = $conn->query($query);
 ?>
@@ -89,18 +89,21 @@ $result = $conn->query($query);
                                             <thead class="bg-gradient-cyan">
                                                 <tr>
                                                     <th>Nomor Working Order</th>
+                                                    <th>ID Berlangganan</th>
                                                     <th>Nama Pelanggan</th>
+                                                    <th>No Telepon</th>
                                                     <th>Alamat Rumah/Tikor</th>
+                                                    <th>Keluhan</th>
                                                     <th>Status Pekerjaan</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($result as $pekerjaan) {
-                                                    $id_pekerjaan = $pekerjaan['id'];
+                                                    $id_pekerjaan = $pekerjaan['id_perbaikan'];
 
                                                     // Ambil semua status pekerjaan berdasarkan no_wo
-                                                    $query_status = "SELECT status FROM report WHERE no_wo = '$id_pekerjaan'";
+                                                    $query_status = "SELECT status FROM report_perbaikan WHERE no_wo = '$id_pekerjaan'";
                                                     $result_status = $conn->query($query_status);
 
                                                     $total = 0;
@@ -125,13 +128,16 @@ $result = $conn->query($query);
                                                     }
                                                 ?>
                                                     <tr>
-                                                        <td><?= $pekerjaan['id'] ?></td>
+                                                        <td><?= $pekerjaan['id_perbaikan'] ?></td>
+                                                        <td><?= $pekerjaan['id_berlangganan']?></td>
                                                         <td><?= $pekerjaan['nama_pelanggan'] ?></td>
-                                                        <td><?= $pekerjaan['alamat_pelanggan'] ?></td>
+                                                        <td><?= $pekerjaan['no_telp']?></td>
+                                                        <td><?= $pekerjaan['alamat'] ?></td>
+                                                        <td><?= $pekerjaan['keluhan']?></td>
                                                         <td><?= $status ?></td>
                                                         <td>
                                                             <a class="btn btn-warning btn-sm"
-                                                                href="report-wo.php?id=<?= $pekerjaan['id'] ?>">
+                                                                href="report-perbaikan.php?id=<?= $pekerjaan['id_perbaikan'] ?>">
                                                                 <i class="fas fa-pencil-alt"></i> Laporkan
                                                             </a>
                                                         </td>

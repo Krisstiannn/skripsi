@@ -72,31 +72,31 @@ if (isset($_POST['btn_submit'])) {
                                 <div class="card-header">
                                     <h3 class="card-title">Input Data Perbaikan</h3>
                                 </div>
-                                <form>
+                                <form action="" method="POST">
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nama">Nama Pelanggan</label>
-                                            <input type="text" class="form-control" id="nama_pelanggan"
+                                            <input type="text" class="form-control" name="nama_pelanggan"
                                                 placeholder="Nama Pelanggan">
                                         </div>
                                         <div class="form-group">
                                             <label for="whatsapp">No WA</label>
-                                            <input type="text" class="form-control" id="no_wa" placeholder="NO WA">
+                                            <input type="text" class="form-control" name="no_wa" placeholder="NO WA">
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat">Alamat atau Titik Kordinat</label>
-                                            <textarea type="text" class="form-control" id="keluhan"
+                                            <textarea type="text" class="form-control" name="alamat"
                                                 placeholder="Alamat Lengkap Rumah"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="keluhan">Keluhan</label>
-                                            <textarea type="text" class="form-control" id="keluhan"
+                                            <textarea type="text" class="form-control" name="keluhan"
                                                 placeholder="Tuliskan detail keluhan"></textarea>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-success" id="btn_submit">Submit</button>
-                                        <button type="submit" class="btn btn-danger" id="btn_cancel">Cancel</button>
+                                        <button type="submit" class="btn btn-success" name="btn_submit">Submit</button>
+                                        <a href="dashboard.php" type="submit" class="btn btn-danger" name="btn_cancel">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -119,6 +119,7 @@ if (isset($_POST['btn_submit'])) {
     <script src="/nsp/dist/js/adminlte.js"></script>
     <script src="/nsp/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script src="/nsp/plugins/raphael/raphael.min.js"></script>
+    <script src="/nsp/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script src="/nsp/plugins/jquery-mapael/jquery.mapael.min.js"></script>
     <script src="/nsp/plugins/jquery-mapael/maps/usa_states.min.js"></script>
     <script src="/nsp/plugins/chart.js/Chart.min.js"></script>

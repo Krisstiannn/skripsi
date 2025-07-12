@@ -52,7 +52,7 @@ $jumlah_data = $result_jumlahData->fetch_assoc();
                         <div class="col-sm-4">
                             <i class="m-2" style="font-size: 20px;">Silahkan Absen Terlebih Dahulu</i>
                         </div>
-                        <form action="./admin/karyawan/absen.php" method="POST">
+                        <form action="/nsp/admin/karyawan/absen.php" method="POST">
                             <button type="submit" class="btn btn-sm btn-info text-bold" name="btn_absen">Absen
                                 Masuk</button>
 

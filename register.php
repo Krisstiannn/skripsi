@@ -7,10 +7,8 @@ if (isset($_POST['btn_register'])) {
     $password = $_POST['password'];
     $re_type = $_POST['re_type'];
 
-    if ($password === $re_type) {
-        $notifikasi = "password tidak sama";
-        header("LOCATION: register.php");
-        die();
+    if ($password !== $re_type) {
+        $notifikasi = "PASSWORD TIDAK SAMA";
     } else {
         $query_tambah = "INSERT INTO users (id_users, username, password, peran) VALUES ('', '$email', '$password', 'pelanggan')";
         $result_tambah = $conn->query($query_tambah);

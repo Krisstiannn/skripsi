@@ -20,18 +20,26 @@ if (isset($_POST['btn_absen'])) {
         $row = $result_id->fetch_assoc();
         $id_karyawan = $row['id'];
 
+        $validasi_absen = "SELECT * FROM absen WHERE nip_karyawan = '$nip_karyawan' AND tanggal = '$tanggal'";
+        $validasi_result = $conn->query($validasi_absen);
+
+        if($validasi_absen->num_rows>0) {
+            echo "<script>alert('Anda sudah absen masuk hari ini!');</script>";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        }
+
         $sql = "INSERT INTO absen (id, id_karyawan, nip_karyawan, nama_karyawan, tanggal, jam_masuk) 
                 VALUES (NULL, '$id_karyawan', '$nip_karyawan', '$nama_karyawan', '$tanggal', '$jam')";
-
-        $result = $conn->query($sql);
-
-        if ($result === TRUE) {
-            echo "<script type='text/javascript'>alert('Absen BERHASIL Dilakukan!');</script>";
-            header("Location: " . $_SERVER['PHP_SELF']);
-        } else {
-            echo "<script type='text/javascript'>alert('Absen GAGAL Di Lakukan!');</script>";
-            header("Location: " . $_SERVER['PHP_SELF']);
-        }
+         $result = $conn->query($sql);
+    
+            if ($result === TRUE) {
+                echo "<script type='text/javascript'>alert('Absen BERHASIL Dilakukan!');</script>";
+                header("Location: " . $_SERVER['PHP_SELF']);
+            } else {
+                echo "<script type='text/javascript'>alert('Absen GAGAL Di Lakukan!');</script>";
+                header("Location: " . $_SERVER['PHP_SELF']);
+            }
     } else {
         echo "<script type='text/javascript'>alert('Data Karyawan Tidak Ditemukan!');</script>";
     }
@@ -152,13 +160,13 @@ if (isset($_POST['absen_keluar'])) {
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($tampil_data as $absen) { ?>
-                                                    <tr>
-                                                        <td><?= $absen['nip_karyawan'] ?></td>
-                                                        <td><?= $absen['nama_karyawan'] ?></td>
-                                                        <td><?= date('d-m-Y', strtotime($absen['tanggal'])) ?></td>
-                                                        <td><?= $absen['jam_masuk'] ?></td>
-                                                        <td><?= $absen['jam_keluar'] ?></td>
-                                                    </tr>
+                                                <tr>
+                                                    <td><?= $absen['nip_karyawan'] ?></td>
+                                                    <td><?= $absen['nama_karyawan'] ?></td>
+                                                    <td><?= date('d-m-Y', strtotime($absen['tanggal'])) ?></td>
+                                                    <td><?= $absen['jam_masuk'] ?></td>
+                                                    <td><?= $absen['jam_keluar'] ?></td>
+                                                </tr>
                                                 <?php } ?>
                                             </tbody>
                                         </table>

@@ -3,23 +3,22 @@ include "/xampp/htdocs/nsp/services/koneksi.php";
 
 $query_tampil = "SELECT * FROM psb";
 $result_tampil = $conn->query($query_tampil);
-$query_tampilKaryawan = "SELECT * FROM karyawan";
-$result_tampilkaryawan = $conn->query($query_tampilKaryawan);
+$result_tampilkaryawan = $conn->query("SELECT * FROM karyawan WHERE posisi_karyawan = 'teknisi'");
 
 if (isset($_POST['btn_kirim'])) {
-    $id_pekerjaan = $_POST['id_pekerjaan'];
+    $id_psb = $_POST['id_psb'];
     $id_karyawan = $_POST['id_karyawan'];
 
 
     $cek_karyawan = $conn->query("SELECT * FROM karyawan WHERE id = '$id_karyawan'");
-    $cek_pekerjaan = $conn->query("SELECT * FROM psb WHERE id = '$id_pekerjaan'");
-    $cek = $conn->query("SELECT * FROM wo WHERE id_pekerjaan = '$id_pekerjaan'")->fetch_assoc();
+    $cek_pekerjaan = $conn->query("SELECT * FROM psb WHERE id = '$id_psb'");
+    $cek = $conn->query("SELECT * FROM wo WHERE id_psb = '$id_psb'")->fetch_assoc();
 
     if ($cek > 0) {
         echo "<script>alert('Pekerjaan Sudah Di Kirimkan Ke Karyawan!'); window.location.href='psb.php';</script>";
         die();
     } else if ($cek_karyawan->num_rows > 0 && $cek_pekerjaan->num_rows > 0) {
-        $query_insert = "INSERT INTO wo (id_karyawan, id_pekerjaan) VALUES ('$id_karyawan', '$id_pekerjaan')";
+        $query_insert = "INSERT INTO wo (id_karyawan, id_psb) VALUES ('$id_karyawan', '$id_psb')";
         if ($conn->query($query_insert)) {
             echo "<script>alert('Pekerjaan berhasil dikirim ke karyawan!'); window.location.href='psb.php';</script>";
         } else {
@@ -110,50 +109,52 @@ if (isset($_POST['btn_kirim'])) {
                                                     <th>Foto Rumah</th>
                                                     <th>Foto KTP</th>
                                                     <th>Paket Internet</th>
+                                                    <th>Teknisi Yang Mengerjakan</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($result_tampil as $psb) { ?>
-                                                    <tr>
-                                                        <td><?= $psb['nama_pelanggan'] ?></td>
-                                                        <td><?= $psb['wa_pelanggan'] ?></td>
-                                                        <td><?= $psb['alamat_pelanggan'] ?></td>
-                                                        <td><img src="/nsp/storage/img/<?= $psb['rumah_pelanggan'] ?>"
-                                                                alt="<?= $psb['rumah_pelanggan'] ?>" style="width: 100px;">
-                                                        </td>
-                                                        <td><img src="/nsp/storage/img/<?= $psb['ktp_pelanggan'] ?>"
-                                                                alt="<?= $psb['ktp_pelanggan'] ?>" style="width: 100px;">
-                                                        </td>
-                                                        <td><?= $psb['paket_internet'] ?></td>
-                                                        <td>
-                                                            <a class="btn btn-info btn-sm"
-                                                                href="edit-psb.php?id=<?= $psb['id'] ?>">
-                                                                <i class="fas fa-pencil-alt">
-                                                                </i>
-                                                                Edit
-                                                            </a>
-                                                            <a class="btn btn-danger btn-sm"
-                                                                href="hapus-psb.php?id=<?= $psb['id'] ?>">
-                                                                <i class="fas fa-trash">
-                                                                </i>
-                                                                Delete
-                                                            </a>
-
-                                                            <form action="psb.php" method="POST">
-                                                                <input type="hidden" name="id_pekerjaan"
-                                                                    value="<?= $psb['id'] ?>">
-                                                                <select name="id_karyawan">
-                                                                    <?php foreach ($result_tampilkaryawan as $karyawan) { ?>
-                                                                        <option value="<?= $karyawan['id'] ?>">
-                                                                            <?= $karyawan['nama_karyawan'] ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <button type="submit" name="btn_kirim"
-                                                                    class="btn btn-warning btn-sm">Kirim</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                <tr>
+                                                    <td><?= $psb['nama_pelanggan'] ?></td>
+                                                    <td><?= $psb['wa_pelanggan'] ?></td>
+                                                    <td><?= $psb['alamat_pelanggan'] ?></td>
+                                                    <td><img src="/nsp/storage/img/<?= $psb['rumah_pelanggan'] ?>"
+                                                            alt="<?= $psb['rumah_pelanggan'] ?>" style="width: 100px;">
+                                                    </td>
+                                                    <td><img src="/nsp/storage/img/<?= $psb['ktp_pelanggan'] ?>"
+                                                            alt="<?= $psb['ktp_pelanggan'] ?>" style="width: 100px;">
+                                                    </td>
+                                                    <td><?= $psb['paket_internet'] ?></td>
+                                                    <td>
+                                                        <form action="psb.php" method="POST">
+                                                            <input type="hidden" name="id_psb"
+                                                                value="<?= $psb['id'] ?>">
+                                                            <select name="id_karyawan">
+                                                                <?php foreach ($result_tampilkaryawan as $karyawan) { ?>
+                                                                <option value="<?= $karyawan['id'] ?>">
+                                                                    <?= $karyawan['nama_karyawan'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <button type="submit" name="btn_kirim"
+                                                                class="btn btn-warning btn-sm">Kirim</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-info btn-sm"
+                                                            href="edit-psb.php?id=<?= $psb['id'] ?>">
+                                                            <i class="fas fa-pencil-alt">
+                                                            </i>
+                                                            Edit
+                                                        </a>
+                                                        <a class="btn btn-danger btn-sm"
+                                                            href="hapus-psb.php?id=<?= $psb['id'] ?>">
+                                                            <i class="fas fa-trash">
+                                                            </i>
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                                 <?php } ?>
                                             </tbody>
                                         </table>

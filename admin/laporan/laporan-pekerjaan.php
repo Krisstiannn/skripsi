@@ -1,7 +1,7 @@
 <?php
 include "/xampp/htdocs/nsp/services/koneksi.php";
 session_start();
-$query_tampil = "SELECT * FROM report";
+$query_tampil = "SELECT * FROM report_pemasangan";
 $result_tampil = $conn->query($query_tampil);
 
 if (isset($_POST{

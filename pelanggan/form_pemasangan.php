@@ -1,5 +1,33 @@
 <?php
+session_start();
 include "/xampp/htdocs/nsp/services/koneksi.php";
+$id_langganan = "";
+$tanggal = date('d-m-Y');
+$id_user = $_SESSION['id_users'] ?? null;
+
+$cekLangganan = $conn->query("SELECT id_langganan FROM pelanggan WHERE id_user = '$id_user'");
+if ($cekLangganan->num_rows > 0) {
+    echo "<script>alert('Anda sudah memiliki langganan. Tidak dapat mengajukan pemasangan lagi.'); window.location.href='status_pemasangan.php';</script>";
+    exit;
+}
+
+function generateIdLangganan ($tanggal, $conn) {
+    $date = date_create($tanggal);
+    $tgl = date_format($date, 'd');
+    $bln = date_format($date, 'm');
+    $thn = date_format($date, 'y');
+
+    do{
+        $acak = str_pad(mt_rand(0, 999), 4, '0', STR_PAD_LEFT);
+        $id = "21" . $tgl . $bln . $thn . $acak;
+
+        $cek =$conn->query("SELECT * FROM pelanggan WHERE id_langganan = '$id'");
+    } while ($cek->num_rows>0);
+
+    return $id;
+}
+
+$id_langganan = generateIdLangganan($tanggal, $conn);
 
 if (isset($_POST['btn_submit'])) {
     $nama_pelanggan = $_POST['nama_pelanggan'];
@@ -15,6 +43,7 @@ if (isset($_POST['btn_submit'])) {
     move_uploaded_file($tmp_fileRumah, $dir_foto . $foto_rumah);
     move_uploaded_file($tmp_fileKtp, $dir_foto . $foto_ktp);
 
+
     if (empty($nama_pelanggan) || empty($wa_pelanggan) || empty($alamat) || empty($foto_rumah) || empty($foto_ktp) || empty($paket)) {
         echo "<script type= 'text/javascript'>
                 alert('Tolong isi data dengan benar!');
@@ -22,14 +51,14 @@ if (isset($_POST['btn_submit'])) {
             </script>";
         die();
     } else {
-        $query_tambahData = "INSERT INTO psb (id, nama_pelanggan, wa_pelanggan, alamat_pelanggan, rumah_pelanggan, ktp_pelanggan, paket_internet) 
-        VALUES ('', '$nama_pelanggan', '$wa_pelanggan', '$alamat','$foto_rumah', '$foto_ktp', '$paket')";
+        $query_tambahData = "INSERT INTO psb (id, id_langganan, nama_pelanggan, wa_pelanggan, alamat_pelanggan, rumah_pelanggan, ktp_pelanggan, paket_internet, id_user)
+                             VALUES ('', '$id_langganan', '$nama_pelanggan', '$wa_pelanggan', '$alamat','$foto_rumah', '$foto_ktp', '$paket', '$id_user')";
         $result_tambahData = $conn->query($query_tambahData);
 
         if ($result_tambahData) {
             echo "<script type= 'text/javascript'>
                 alert('Pendaftaran Pemasangan Berhasil, Silahkan Tunggu!');
-                document.location.href = 'dashboard.php';
+                document.location.href = 'status_pemasangan.php';
             </script>";
         } else {
             echo "<script type= 'text/javascript'>
@@ -83,6 +112,13 @@ if (isset($_POST['btn_submit'])) {
                                 <form action="form_pemasangan.php" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <div class="form-group">
+                                            <label for="langganan">ID Berlangganan</label>
+                                            <input type="hidden" name="id_langganan" value="<?= $id_langganan ?>">
+                                            <input type="text" class="form-control" value="<?= $id_langganan ?>"
+                                                disabled>
+
+                                        </div>
+                                        <div class="form-group">
                                             <label for="nama">Nama Pelanggan</label>
                                             <input type="text" class="form-control" name="nama_pelanggan"
                                                 placeholder="Nama Pelanggan" required>
@@ -94,7 +130,7 @@ if (isset($_POST['btn_submit'])) {
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat">Alamat atau Titik Kordinat</label>
-                                            <textarea type="text" class="form-control" id="keluhan"
+                                            <textarea type="text" class="form-control" name="alamat"
                                                 placeholder="Alamat Lengkap Rumah" required></textarea>
                                         </div>
                                         <div class="form-group">
@@ -132,7 +168,8 @@ if (isset($_POST['btn_submit'])) {
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-success" name="btn_submit">Submit</button>
-                                        <button type="submit" class="btn btn-danger" name="btn_cancel">Cancel</button>
+                                        <a href="dashboard.php" type="submit" class="btn btn-danger"
+                                            name="btn_cancel">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -154,6 +191,7 @@ if (isset($_POST['btn_submit'])) {
     <script src="/nsp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="/nsp/dist/js/adminlte.js"></script>
     <script src="/nsp/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/nsp/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script src="/nsp/plugins/raphael/raphael.min.js"></script>
     <script src="/nsp/plugins/jquery-mapael/jquery.mapael.min.js"></script>
     <script src="/nsp/plugins/jquery-mapael/maps/usa_states.min.js"></script>
@@ -163,9 +201,9 @@ if (isset($_POST['btn_submit'])) {
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
-    $(function() {
-        bsCustomFileInput.init();
-    });
+        $(function () {
+            bsCustomFileInput.init();
+        });
     </script>
 </body>
 

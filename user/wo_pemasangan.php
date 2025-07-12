@@ -4,9 +4,9 @@ session_start();
 
 $id_karyawan = $_SESSION['id_karyawan'] ?? null;
 
-$query = "SELECT psb.nama_pelanggan, psb.alamat_pelanggan, psb.id, wo.id_karyawan
+$query = "SELECT psb.nama_pelanggan, psb.alamat_pelanggan, psb.id, psb.id_langganan, wo.id_karyawan
             FROM psb 
-            JOIN wo ON wo.id_pekerjaan = psb.id 
+            JOIN wo ON wo.id_psb = psb.id 
             WHERE wo.id_karyawan = '$id_karyawan'";
 $result = $conn->query($query);
 ?>
@@ -89,6 +89,7 @@ $result = $conn->query($query);
                                             <thead class="bg-gradient-cyan">
                                                 <tr>
                                                     <th>Nomor Working Order</th>
+                                                    <th>ID Langganan</th>
                                                     <th>Nama Pelanggan</th>
                                                     <th>Alamat Rumah/Tikor</th>
                                                     <th>Status Pekerjaan</th>
@@ -100,7 +101,7 @@ $result = $conn->query($query);
                                                     $id_pekerjaan = $pekerjaan['id'];
 
                                                     // Ambil semua status pekerjaan berdasarkan no_wo
-                                                    $query_status = "SELECT status FROM report WHERE no_wo = '$id_pekerjaan'";
+                                                    $query_status = "SELECT status FROM report_pemasangan WHERE no_wo = '$id_pekerjaan'";
                                                     $result_status = $conn->query($query_status);
 
                                                     $total = 0;
@@ -126,12 +127,13 @@ $result = $conn->query($query);
                                                 ?>
                                                     <tr>
                                                         <td><?= $pekerjaan['id'] ?></td>
+                                                        <td><?= $pekerjaan['id_langganan']?></td>
                                                         <td><?= $pekerjaan['nama_pelanggan'] ?></td>
                                                         <td><?= $pekerjaan['alamat_pelanggan'] ?></td>
                                                         <td><?= $status ?></td>
                                                         <td>
                                                             <a class="btn btn-warning btn-sm"
-                                                                href="report-wo.php?id=<?= $pekerjaan['id'] ?>">
+                                                                href="report-pemasangan.php?id=<?= $pekerjaan['id'] ?>">
                                                                 <i class="fas fa-pencil-alt"></i> Laporkan
                                                             </a>
                                                         </td>

@@ -1,3 +1,34 @@
+<?php
+include "/xampp/htdocs/nsp/services/koneksi.php";
+$tampil_data = "SELECT * FROM perbaikan";
+$result_tampilData = $conn->query($tampil_data);
+$result_tampilkaryawan = $conn->query("SELECT * FROM karyawan WHERE posisi_karyawan = 'teknisi'");
+
+if (isset($_POST['btn_kirim'])) {
+    $id_perbaikan = $_POST['id_perbaikan'];
+    $id_karyawan = $_POST['id_karyawan'];
+
+
+    $cek_karyawan = $conn->query("SELECT * FROM karyawan WHERE id = '$id_karyawan'");
+    $cek_pekerjaan = $conn->query("SELECT * FROM perbaikan WHERE id_perbaikan = '$id_perbaikan'");
+    $cek = $conn->query("SELECT * FROM wo WHERE id_perbaikan = '$id_perbaikan'")->fetch_assoc();
+
+    if ($cek > 0) {
+        echo "<script>alert('Pekerjaan Sudah Di Kirimkan Ke Karyawan!'); window.location.href='psb.php';</script>";
+        die();
+    } else if ($cek_karyawan->num_rows > 0 && $cek_pekerjaan->num_rows > 0) {
+        $query_insert = "INSERT INTO wo (id_karyawan, id_perbaikan) VALUES ('$id_karyawan', '$id_perbaikan')";
+        if ($conn->query($query_insert)) {
+            echo "<script>alert('Pekerjaan berhasil dikirim ke karyawan!'); window.location.href='perbaikan.php';</script>";
+        } else {
+            echo "<script>alert('Gagal mengirim pekerjaan!'); window.history.back();</script>";
+        }
+    } else {
+        echo "<script>alert('Data tidak valid!'); window.history.back();</script>";
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,85 +103,51 @@
                                         <table class="table table-bordered text-center">
                                             <thead class="bg-gradient-cyan">
                                                 <tr>
+                                                    <th>ID Berlangganan</th>
                                                     <th>Nama Pelanggan</th>
                                                     <th>NO WA</th>
                                                     <th>Alamat atau Titik Kordinat</th>
                                                     <th>Keluhan</th>
-                                                    <th>Status Perbaikan</th>
+                                                    <th>Teknisi Yang Mengerjakan</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php foreach ($result_tampilData as $perbaikan) {?>
                                                 <tr>
-                                                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                                    <td>Call of Duty IV</td>
-                                                    <td><span class="badge badge-success">Shipped</span></td>
+                                                    <td><?= $perbaikan['id_berlangganan']?></td>
+                                                    <td><?= $perbaikan['nama_pelanggan']?></td>
+                                                    <td><?= $perbaikan['no_telp']?></td>
+                                                    <td><?= $perbaikan['alamat']?></td>
+                                                    <td><?= $perbaikan['keluhan']?></td>
                                                     <td>
-                                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                            90,80,90,-70,61,-83,63</div>
+                                                        <form action="perbaikan.php" method="POST">
+                                                                <input type="hidden" name="id_perbaikan"
+                                                                    value="<?= $perbaikan['id_perbaikan'] ?>">
+                                                                <select name="id_karyawan">
+                                                                    <?php foreach ($result_tampilkaryawan as $karyawan) { ?>
+                                                                        <option value="<?= $karyawan['id'] ?>">
+                                                                            <?= $karyawan['nama_karyawan'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <button type="submit" name="btn_kirim"
+                                                                    class="btn btn-warning btn-sm">Kirim</button>
+                                                        </form>
                                                     </td>
                                                     <td>
-                                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                            90,80,90,-70,61,-83,63</div>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-info btn-sm" href="edit-perbaikan.php">
+                                                        <a class="btn btn-info btn-sm" href="edit-perbaikan.php?id=<?= $perbaikan['id_perbaikan']?>">
                                                             <i class="fas fa-pencil-alt">
                                                             </i>
                                                             Edit
                                                         </a>
-                                                        <a class="btn btn-danger btn-sm" href="hapus-perbaikan.php">
+                                                        <a class="btn btn-danger btn-sm" href="hapus-perbaikan.phpid=<?= $perbaikan['id_perbaikan']?>">
                                                             <i class="fas fa-trash">
                                                             </i>
                                                             Delete
                                                         </a>
-                                                        <div class="btn-block btn-group">
-                                                            <button type="button"
-                                                                class="btn btn-warning btn-xs dropdown-toggle dropdown-icon"
-                                                                data-toggle="dropdown"> Order Ke Tim
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                            </div>
-                                                        </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                                    <td>Samsung Smart TV</td>
-                                                    <td><span class="badge badge-warning">Pending</span></td>
-                                                    <td>
-                                                        <div class="sparkbar" data-color="#f39c12" data-height="20">
-                                                            90,80,-90,70,61,-83,68</div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                            90,80,90,-70,61,-83,63</div>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-info btn-sm" href="edit-perbaikan.php">
-                                                            <i class="fas fa-pencil-alt">
-                                                            </i>
-                                                            Edit
-                                                        </a>
-                                                        <a class="btn btn-danger btn-sm" href="hapus-perbaikan.php">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                            Delete
-                                                        </a>
-                                                        <div class="btn-block btn-group">
-                                                            <button type="button"
-                                                                class="btn btn-warning btn-xs dropdown-toggle dropdown-icon"
-                                                                data-toggle="dropdown"> Order Ke Tim
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                <?php }?>
                                             </tbody>
                                         </table>
                                     </div>

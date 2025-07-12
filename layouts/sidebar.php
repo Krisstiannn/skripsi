@@ -102,6 +102,12 @@ if (isset($_POST['btn_logout'])) {
                                 <p class="text-light">Perbaikan</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/nsp/admin/pekerjaan/request.php" class="nav-link">
+                                <i class="far nav-icon"></i>
+                                <p class="text-light">Requst Pelanggan</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

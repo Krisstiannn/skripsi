@@ -1,3 +1,38 @@
+<?php
+include "/xampp/htdocs/nsp/services/koneksi.php";
+
+if (isset($_POST["btn_submit"])) {
+    $id_langganan = $_POST['id_langganan'];
+    $nama_pelanggan = $_POST['nama_pelanggan'];
+    $no_wa = $_POST['no_wa'];
+    $alamat = $_POST['alamat_rumah'];
+    $keluhan = $_POST['keluhan'];
+    // $status = $_POST['status_perbaikan'];
+
+    if (empty($id_langganan) || empty($nama_pelanggan) || empty($no_wa) || empty($alamat) || empty($keluhan)) {
+        echo "<script type= 'text/javascript'>
+                alert('Tolong isi data dengan benar!');
+                document.location.href = 'tambah-perbaikan.php';
+            </script>";
+        die();
+    } else {
+        $query_tambah = "INSERT INTO perbaikan (id_perbaikan, id_langganan, nama_pelanggan, no_telp, alamat, keluhan) VALUE ('','$id_langganan', '$nama_pelanggan', '$no_wa', '$alamat', '$keluhan')";
+        $result_tambah = $conn->query($query_tambah);
+
+         if ($result_tambahData) {
+            echo "<script type= 'text/javascript'>
+                alert('Data Berhasil disimpan!');
+                document.location.href = 'perbaikan.php';
+            </script>";
+        } else {
+            echo "<script type= 'text/javascript'>
+                alert('Data Gagal disimpan!');
+                document.location.href = 'tambah-perbaikan.php';
+            </script>";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,30 +78,35 @@
                         <form>
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="id_langganan">ID Berlangganan</label>
+                                    <input type="text" class="form-control" name="id_langganan"
+                                        placeholder="ID Berlangganan">
+                                </div>
+                                <div class="form-group">
                                     <label for="nama">Nama Pelanggan</label>
-                                    <input type="text" class="form-control" id="nama_pelanggan"
+                                    <input type="text" class="form-control" name="nama_pelanggan"
                                         placeholder="Nama Pelanggan">
                                 </div>
                                 <div class="form-group">
                                     <label for="whatsapp">No WA</label>
-                                    <input type="text" class="form-control" id="no_wa" placeholder="NO WA">
+                                    <input type="text" class="form-control" name="no_wa" placeholder="NO WA">
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat atau Titik Kordinat</label>
-                                    <input type="text" class="form-control" id="alamat_rumah" placeholder="Alamat">
+                                    <input type="text" class="form-control" name="alamat_rumah" placeholder="Alamat">
                                 </div>
                                 <div class="form-group">
                                     <label for="keluhan">Keluhan</label>
-                                    <input type="text" class="form-control" id="keluhan" placeholder="Keluhan">
+                                    <input type="text" class="form-control" name="keluhan" placeholder="Keluhan">
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="status">Status</label>
-                                    <input type="text" class="form-control" id="status_perbaikan" placeholder="Status">
-                                </div>
+                                    <input type="text" class="form-control" name="status_perbaikan" placeholder="Status">
+                                </div> -->
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success" id="btn_submit">Submit</button>
-                                <button type="submit" class="btn btn-danger" id="btn_cancel">Cancel</button>
+                                <button type="submit" class="btn btn-success" name="btn_submit">Submit</button>
+                                <button type="submit" class="btn btn-danger" name="btn_cancel">Cancel</button>
                             </div>
                         </form>
                     </div>

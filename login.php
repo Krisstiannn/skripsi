@@ -7,29 +7,34 @@ if (isset($_POST['btn_login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // $query_users = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    // $query_karyawan = "SELECT * FROM karyawan";
-    // $result_karyawan = $conn->query($query_karyawan);
-
-    $query_users = "SELECT users.username, users.password, users.peran, karyawan.nip_karyawan, karyawan.nama_karyawan, karyawan.id
+    $query_users = "SELECT users.id_users, users.username, users.password, users.peran, 
+                           karyawan.nip_karyawan, karyawan.nama_karyawan, karyawan.id, 
+                           pelanggan.nama_pelanggan,
+                           psb.nama_pelanggan
                 FROM users 
-                JOIN karyawan ON users.username = karyawan.nip_karyawan
+                LEFT JOIN karyawan ON users.username = karyawan.nip_karyawan
+                LEFT JOIN pelanggan ON users.username = pelanggan.nama_pelanggan
+                LEFT JOIN psb ON users.username = psb.nama_pelanggan
                 WHERE users.username = '$username' AND users.password = '$password'";
     $result_users = $conn->query($query_users);
 
     if ($result_users->num_rows > 0) {
         $data_login = $result_users->fetch_assoc();
+        $_SESSION['id_users'] = $data_login['id_users'];
         $_SESSION['id_karyawan'] = $data_login['id'];
         $_SESSION['nip'] = $data_login['nip_karyawan'];
         $_SESSION['username'] = $data_login['username'];
         $_SESSION['nama_karyawan'] = $data_login['nama_karyawan'];
+        $_SESSION['nama_pelanggan'] = $data_login['nama_pelanggan'];
         $_SESSION["peran"] = $data_login["peran"];
         if ($_SESSION["peran"] === "admin") {
             header("location: ./admin/index.php");
-        } else if ($_SESSION["peran"] === "user") {
+        } else if ($_SESSION["peran"] === "teknisi") {
             header("location: ./user/index.php");
         } else if ($_SESSION["peran"] === "pelanggan") {
             header("location: ./pelanggan/dashboard.php");
+        } else {
+            $notifikasi_login = "USERNAME ATAU PASSWORD SALAH!!!";
         }
     } else {
         $notifikasi_login = "USERNAME ATAU PASSWORD SALAH!!!";
@@ -68,10 +73,13 @@ if (isset($_POST['btn_login'])) {
 
                 <form action="login.php" method="POST">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username">
+                        <input type="text" class="form-control" placeholder="Email" name="username">
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+                    <div class="row">
+                        <span><a href="cek-email.php">Forget Password?</a></span>
                     </div>
                     <div class="row mt-2">
                         <button type="submit" class="btn btn-block btn-primary" name="btn_login">

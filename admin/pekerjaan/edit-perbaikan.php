@@ -1,3 +1,41 @@
+<?php
+include "/xampp/htdocs/nsp/services/koneksi.php";
+
+$id = $_GET['id_perbaikan'];
+$query = "SELECT * FROM perbaikan";
+$result = $conn->query($query)->fetch_assoc();
+
+if(isset($_POST['btn_submit'])) {
+    $id_langganan = $_POST['id_langganan'];
+    $nama_pelanggan = $_POST['nama_pelanggan'];
+    $no_wa = $_POST['no_wa'];
+    $alamat = $_POST['alamat'];
+    $keluhan = $_POST['keluhan'];
+
+    if(empty($id_langganan) || empty($nama_pelanggan) || empty($no_wa) || empty($alamat) || empty($keluhan)) {
+        echo "<script type= 'text/javascript'>
+                alert('Tolong isi data Dengan Benar!');
+                document.location.href = 'edit-perbaikan.php';
+            </script>";
+        die();
+    } else {
+        $edit = "UPDATE perbaikan SET id_langganan = '$id_langganan', nama_pelanggan = '$nama_pelanggan', no_telp = '$no_wa', alamat = '$alamat', keluhan = '$keluhan' WHERE id_perbaikan = '$id'";
+        $result = $conn->query($edit);
+
+        if($result) {
+            echo "<script type= 'text/javascript'>
+                alert('Data Berhasil dirubah!');
+                document.location.href = 'perbaikan.php';
+            </script>";
+        } else {
+            echo "<script type= 'text/javascript'>
+                alert('Data Gagal dirubah!');
+                document.location.href = 'perbaikan.php';
+            </script>";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,33 +78,38 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Data Perbaikan</h3>
                         </div>
-                        <form>
+                        <form action="edit-perbaikan.php?id=<?= $result['id_perbaikan'] ?>" method ="POST">
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="id_langganan">ID Berlangganan</label>
+                                    <input type="text" class="form-control" name="id_langganan"
+                                        placeholder="ID Berlangganan" value="<?= $result['id_langganan']?>">
+                                </div>
+                                <div class="form-group">
                                     <label for="nama">Nama Pelanggan</label>
-                                    <input type="text" class="form-control" id="nama_pelanggan"
-                                        placeholder="Nama Pelanggan">
+                                    <input type="text" class="form-control" name="nama_pelanggan"
+                                        placeholder="Nama Pelanggan" value="<?= $result['nama_pelanggan']?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="whatsapp">No WA</label>
-                                    <input type="text" class="form-control" id="no_wa" placeholder="NO WA">
+                                    <input type="text" class="form-control" name="no_wa" placeholder="NO WA" value="<?= $result['no_telp']?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat atau Titik Kordinat</label>
-                                    <input type="text" class="form-control" id="alamat_rumah" placeholder="Alamat">
+                                    <input type="text" class="form-control" name="alamat_rumah" placeholder="Alamat" value="<?= $result['alamat']?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="keluhan">Keluhan</label>
-                                    <input type="text" class="form-control" id="keluhan" placeholder="Keluhan">
+                                    <input type="text" class="form-control" name="keluhan" placeholder="Keluhan" value="<?= $result['keluhan']?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
-                                    <input type="text" class="form-control" id="status_perbaikan" placeholder="Status">
+                                    <input type="text" class="form-control" name="status_perbaikan" placeholder="Status" value="<?= $result['status']?>">
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success" id="btn_submit">Submit</button>
-                                <button type="submit" class="btn btn-danger" id="btn_cancel">Cancel</button>
+                                <button type="submit" class="btn btn-success" name="btn_submit">Submit</button>
+                                <a href="perbaikan.php" type="submit" class="btn btn-danger" name="btn_cancel">Cancel</a>
                             </div>
                         </form>
                     </div>
