@@ -1,9 +1,9 @@
 <?php
 include "/xampp/htdocs/nsp/services/koneksi.php";
 session_start();
-$id_karyawan = $_SESSION['id_karyawan'] ?? null;
-$query_jumlah = "SELECT COUNT(*) AS total_pekerjaan FROM wo WHERE id_karyawan = '$id_karyawan'";
-$result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
+$id_users = $_SESSION['id_users'] ?? null;
+$data = "SELECT * FROM pelanggan WHERE id_user = '$id_users'";
+$hasil = $conn->query($data)->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,16 +46,19 @@ $result_tampilJumlah = $conn->query($query_jumlah)->fetch_assoc();
             <div class="container center-screen">
                 <div class="card card-primary card-profile-wrapper">
                     <div class="card-body box-profile">
-                        <h3 class="profile-username text-center pb-3">Nina Mcintire</h3>
+                        <h3 class="profile-username text-center pb-3"><?= $hasil['nama_pelanggan']?></h3>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Jenis Paket</b> <p class="float-right">Paket 3 Perangkat</p>
+                                <b>No Inet/ID Langganan</b> <p class="float-right"><?= $hasil['id_langganan']?></p>
                             </li>
                             <li class="list-group-item">
-                                <b>Kecepatan</b> <p class="float-right">3 Mbps</p>
+                                <b>Jenis Paket</b> <p class="float-right"><?= $hasil['jenis_layanan']?></p>
                             </li>
                             <li class="list-group-item">
-                                <b>Status</b> <p class="float-right">Aktif</p>
+                                <b>Kecepatan</b> <p class="float-right"><?= $hasil['jenis_layanan']?></p>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Status</b> <p class="float-right"><?= $hasil['status_pelanggan']?></p>
                             </li>
                             <li class="list-group-item">
                                 <b>Jatuh Tempo</b> <p class="float-right">Tanggal 15</p>

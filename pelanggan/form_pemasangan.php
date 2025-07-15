@@ -116,7 +116,6 @@ if (isset($_POST['btn_submit'])) {
                                             <input type="hidden" name="id_langganan" value="<?= $id_langganan ?>">
                                             <input type="text" class="form-control" value="<?= $id_langganan ?>"
                                                 disabled>
-
                                         </div>
                                         <div class="form-group">
                                             <label for="nama">Nama Pelanggan</label>

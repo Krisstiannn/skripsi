@@ -15,14 +15,16 @@ $query_material = "SELECT * FROM material";
 $result_material = $conn->query($query_material);
 
 if (isset($_POST['btn_submit'])) {
-    // $no_wo = $_POST['no_wo'];
-    // $nama_pelanggan = $_POST['nama_pelanggan'];
-    // $alamat_pelanggan = $_POST['alamat'];
+    $no_wo = $_POST['no_wo'];
+    $nama_pelanggan = $_POST['nama_pelanggan'];
+    $alamat_pelanggan = $_POST['alamat_pelanggan'];
+    $wa_pelanggan = $_POST['wa_pelanggan'];
+    $id_langganan = $_POST['id_langganan'];
     $status = $_POST['status_pekerjaan'];
     $keterangan = $_POST['keterangan'];
-    $barang1 = $_POST['barang1'];
-    $barang2 = $_POST['barang2'];
-    $barang3 = $_POST['barang3'];
+    // $barang1 = $_POST['barang1'];
+    // $barang2 = $_POST['barang2'];
+    // $barang3 = $_POST['barang3'];
     $jumlah1 = $_POST['jumlah1'];
     $jumlah2 = $_POST['jumlah2'];
     $jumlah3 = $_POST['jumlah3'];
@@ -38,14 +40,15 @@ if (isset($_POST['btn_submit'])) {
     move_uploaded_file($tmp_redaman, $dir_foto . $foto_redaman);
     move_uploaded_file($tmp_modem, $dir_foto . $foto_modem);
 
-    $query_tambahData = "INSERT INTO report_pemasangan (id, status, keterangan, barang1, barang2, barang3, jumlah1, jumlah2, jumlah3, foto_odp, foto_redaman, foto_modem) 
-        VALUES ('', '$status','$keterangan', '$barang1', '$barang2', '$barang3', '$jumlah1', '$jumlah2', '$jumlah3', '$foto_odp', '$foto_redaman', '$foto_modem')";
+    $query_tambahData = "INSERT INTO report_pemasangan (id, no_wo, nama_pelanggan, alamat_pelanggan, no_telp, id_langganan, status, keterangan, jumlah1, jumlah2, jumlah3, foto_odp, foto_redaman, foto_modem) 
+        VALUES ('', '$no_wo', '$nama_pelanggan', '$alamat_pelanggan', '$wa_pelanggan', '$id_langganan', '$status','$keterangan', '$jumlah1', '$jumlah2', '$jumlah3', '$foto_odp', '$foto_redaman', '$foto_modem')";
     $result_tambahData = $conn->query($query_tambahData);
 
     if ($result_tambahData) {
+        insertPelanggan($conn, $id_langganan);
         echo "<script type= 'text/javascript'>
                 alert('Data Berhasil disimpan!');
-                document.location.href = 'wo.php';
+                document.location.href = 'wo_pemasangan.php';
             </script>";
     } else {
         echo "<script type= 'text/javascript'>
@@ -54,6 +57,39 @@ if (isset($_POST['btn_submit'])) {
             </script>";
     }
 }
+
+function insertPelanggan($conn, $id_langganan) {
+    $query = "SELECT 
+                p.id_user,
+                p.nama_pelanggan,
+                p.alamat_pelanggan,
+                p.wa_pelanggan,
+                p.id_langganan,
+                p.paket_internet
+            FROM psb p
+            JOIN report_pemasangan r ON r.id_langganan = p.id_langganan
+            WHERE r.status = 'selesai' AND p.id_langganan = '$id_langganan'";
+    $result=$conn->query($query);        
+
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        $id_user = $data['id_user'];
+
+        $cek = $conn->query("SELECT id FROM pelanggan WHERE id_user = '$id_user'");
+        if ($cek->num_rows == 0) {
+            $nama    = $data['nama_pelanggan'];
+            $alamat  = $data['alamat_pelanggan'];
+            $no_wa   = $data['wa_pelanggan'];
+            $paket   = $data['paket_internet'];
+
+            $conn->query("INSERT INTO pelanggan 
+                (id_user, id_langganan, nama_pelanggan, alamat_pelanggan, wa_pelanggan, jenis_layanan, status_pelanggan)
+                VALUES 
+                ('$id_user', '$id_langganan', '$nama', '$alamat', '$no_wa', '$paket', 'AKTIF')");
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,39 +133,46 @@ if (isset($_POST['btn_submit'])) {
                         <div class="card-header">
                             <h3 class="card-title">Report Pemasangan Baru</h3>
                         </div>
-                        <form action="report-pemasangan.php?id=<?= $result['id'] ?>" method="POST" enctype="multipart/form-data">
+                        <form action="report-pemasangan.php?id=<?= $result['id'] ?>" method="POST"
+                            enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="id_langganan">ID Berlangganan</label>
-                                    <input type="text" class="form-control" name="id_langganan" placeholder="ID Berlangganan"
+                                    <label for="langganan">ID Berlangganan</label>
+                                    <input type="hidden" name="id_langganan" value="<?= $result['id_langganan'] ?>">
+                                    <input type="text" class="form-control" name="id_langganan"
                                         value="<?= $result['id_langganan'] ?>" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="whatsapp">No Working Order</label>
-                                    <input type="text" class="form-control" name="no_wo" placeholder="NO WO"
-                                        value="<?= $result['id'] ?>" disabled>
+                                    <label for="no_wo">No Working Order</label>
+                                    <input type="hidden" name="no_wo" value="<?= $result['id'] ?>">
+                                    <input type="text" class="form-control" name="no_wo" value="<?= $result['id'] ?>"
+                                        disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama">Nama Pelanggan</label>
+                                    <label for="nama_pelanggan">Nama Pelanggan</label>
+                                    <input type="hidden" name="nama_pelanggan" value="<?= $result['nama_pelanggan'] ?>">
                                     <input type="text" class="form-control" name="nama_pelanggan"
-                                        placeholder="Nama Pelanggan" value="<?= $result['nama_pelanggan'] ?>" disabled>
+                                        value="<?= $result['nama_pelanggan'] ?>" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat">Alamat atau Titik Kordinat</label>
-                                    <input type="text" class="form-control" name="alamat" placeholder="Alamat"
+                                    <label for="alamat">Alamat Pelanggan</label>
+                                    <input type="hidden" name="alamat_pelanggan"
+                                        value="<?= $result['alamat_pelanggan'] ?>">
+                                    <input type="text" class="form-control" name="alamat_pelanggan"
                                         value="<?= $result['alamat_pelanggan'] ?>" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="telp">Nomor Telepon</label>
-                                    <input type="text" class="form-control" name="no_telp" placeholder="No Telepon"
+                                    <label for="wa_pelanggan">No Whatsapp Pelanggan</label>
+                                    <input type="hidden" name="wa_pelanggan" value="<?= $result['wa_pelanggan'] ?>">
+                                    <input type="text" class="form-control" name="wa_pelanggan"
                                         value="<?= $result['wa_pelanggan'] ?>" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="jabatan">Status Pengerjaan</label>
                                     <select class="custom-select" name="status_pekerjaan">
                                         <option>-- Pilih --</option>
-                                        <option>Selesai</option>
-                                        <option>Kendala</option>
+                                        <option>selesai</option>
+                                        <option>kendala</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -141,7 +184,7 @@ if (isset($_POST['btn_submit'])) {
                                         <label for="nama_barang">Material Yang digunakan</label>
                                         <select class="custom-select" name="barang1">
                                             <?php foreach ($result_material as $material) { ?>
-                                                <option><?= $material['nama_barang'] ?></option>
+                                            <option><?= $material['nama_barang'] ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -155,7 +198,7 @@ if (isset($_POST['btn_submit'])) {
                                         <label for="nama_barang">Material Yang digunakan</label>
                                         <select class="custom-select" name="barang2">
                                             <?php foreach ($result_material as $material) { ?>
-                                                <option><?= $material['nama_barang'] ?></option>
+                                            <option><?= $material['nama_barang'] ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -169,7 +212,7 @@ if (isset($_POST['btn_submit'])) {
                                         <label for="nama_barang">Material Yang digunakan</label>
                                         <select class="custom-select" name="barang3">
                                             <?php foreach ($result_material as $material) { ?>
-                                                <option><?= $material['nama_barang'] ?></option>
+                                            <option><?= $material['nama_barang'] ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -208,7 +251,8 @@ if (isset($_POST['btn_submit'])) {
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-success" name="btn_submit">Submit</button>
-                                <a href="wo_pemasangan.php" type="submit" class="btn btn-danger" name="btn_cancel">Cancel</a>
+                                <a href="wo_pemasangan.php" type="submit" class="btn btn-danger"
+                                    name="btn_cancel">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -235,7 +279,7 @@ if (isset($_POST['btn_submit'])) {
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="/nsp/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script>
-        $(function() {
+        $(function () {
             bsCustomFileInput.init();
         });
     </script>

@@ -107,7 +107,7 @@ if (isset($_POST['cari'])) {
                                             <?php foreach ($result_dataPelanggan as $pelanggan) { ?>
                                                 <tbody>
                                                     <tr>
-                                                        <tr>ID Berlangganan</tr>
+                                                        <td><?= $pelanggan['id_langganan'] ?></td>
                                                         <td><?= $pelanggan['nama_pelanggan'] ?></td>
                                                         <td><?= $pelanggan['alamat_pelanggan'] ?></td>
                                                         <td><?= $pelanggan['wa_pelanggan'] ?></td>

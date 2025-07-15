@@ -93,7 +93,7 @@ if ($resultPelanggan->num_rows === 0) {
                                             <b>Paket Internet</b> <span class="float-right"><?= $paket ?></span>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Teknisi</b> <span class="float-right"><?= $teknisi ?></span>
+                                            <b>Teknisi Yang Mengerjakan</b> <span class="float-right"><?= $teknisi ?></span>
                                         </li>
                                         <li class="list-group-item">
                                             <b>Status Pemasangan</b> <span class="float-right"><?= $status ?></span>
